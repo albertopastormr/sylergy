@@ -1,18 +1,23 @@
 package com.example.example.Objects;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Product implements Serializable {
 
     private Integer barcode;
     private String name;
-    private String info;
+    private List<String> ingredients;
+    private List<String> adaptedFor;
 
 
-    public Product(String n, Integer bcode, String information) {
+    public Product() {}
+
+    public Product(String n, Integer bcode, List<String> ingreds, List<String> adFor) {
         barcode = bcode;
         name = n;
-        info = information;
+        ingredients = ingreds;
+        adaptedFor = adFor;
     }
 
     public String getName() {
@@ -31,16 +36,19 @@ public class Product implements Serializable {
         this.barcode = barcode;
     }
 
-    public String getInfo() {
-        return info;
+    public List<String> getIngredients() {
+        return ingredients;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
     }
 
-    @Override
-    public String toString() {
-        return this.name + " " + this.barcode + " " + this.info;
+    public List<String> getAdaptedFor() {
+        return adaptedFor;
+    }
+
+    public void setAdaptedFor(List<String> adaptedFor) {
+        this.adaptedFor = adaptedFor;
     }
 }

@@ -32,41 +32,23 @@ public class ProductActivity extends AppCompatActivity {
         informationView = findViewById(R.id.flowlayoutInformationTag);
 
         Product p = (Product)getIntent().getSerializableExtra(MainActivity.OBJ); //We capture the intention and obtain the object we sent from MainActivity
-        titleInformation.setText(String.format("PRODUCT NAME: %s", p.getName())); //We update the fields
-        informationView.setText(p.getInfo()); //We update the fields
+        titleInformation.setText(p.getName().toUpperCase()); //We update the fields
 
-
-        /*  ONLY FOR DEBUGGING  */
         flowlayoutAdaptTag= findViewById(R.id.flowlayoutAdaptTag);
         flowlayoutAdaptTag.relayoutToAlign();
-        this.addAdaptTag(flowlayoutAdaptTag,"1");
-        this.addAdaptTag(flowlayoutAdaptTag,"22");
-        this.addAdaptTag(flowlayoutAdaptTag,"333");
-        this.addAdaptTag(flowlayoutAdaptTag,"4444");
-        this.addAdaptTag(flowlayoutAdaptTag,"55555");
-        this.addAdaptTag(flowlayoutAdaptTag,"666666");
-        this.addAdaptTag(flowlayoutAdaptTag,"7777777");
-        this.addAdaptTag(flowlayoutAdaptTag,"88888888");
+
+        for(String str: p.getAdaptedFor()){
+           addAdaptTag(flowlayoutAdaptTag,str);
+        }
 
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
-        this.addAdaptTag(flowLayoutIngredientTag,"1");
-        this.addAdaptTag(flowLayoutIngredientTag,"22");
-        this.addAdaptTag(flowLayoutIngredientTag,"333");
-        this.addAdaptTag(flowLayoutIngredientTag,"4444");
-        this.addAdaptTag(flowLayoutIngredientTag,"55555");
-        this.addAdaptTag(flowLayoutIngredientTag,"666666");
-        this.addAdaptTag(flowLayoutIngredientTag,"7777777");
-        this.addAdaptTag(flowLayoutIngredientTag,"88888888");
-        this.addAdaptTag(flowLayoutIngredientTag,"88888888");
-        this.addAdaptTag(flowLayoutIngredientTag,"88888888");
-        this.addAdaptTag(flowLayoutIngredientTag,"88888888");
-        this.addAdaptTag(flowLayoutIngredientTag,"88888888");
-        this.addAdaptTag(flowLayoutIngredientTag,"88888888");
-        /*                      */
 
-
+        for(String str: p.getIngredients()){
+            addAdaptTag(flowLayoutIngredientTag,str);
+        }
     }
+
     protected void addAdaptTag(FlowLayout flowLayout,String str){
         int ranHeight = dip2px(this, 30);
         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ranHeight);
