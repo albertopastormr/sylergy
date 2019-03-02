@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background2"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.MainActivity" >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110sp"
+        android:layout_marginBottom="10sp"
+        app:srcCompat="@drawable/text_logo"/>
+
+    <LinearLayout
+        android:layout_width="281dp"
+        android:layout_height="174dp"
+        android:layout_marginStart="65sp"
+        android:background="@drawable/shadowb"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4sp"
+            android:layout_marginTop="9sp"
+            android:text="@string/read_barcode_message"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/barcode_text"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:hint="@string/barcode_input_message"
+            android:inputType="number"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:id="@+id/sbutton"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60sp"
+            android:text="@string/search_button_message" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

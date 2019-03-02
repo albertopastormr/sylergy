@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Prototipo Sylergy</string>
+    <string name="etiqueta_b1">Buscar</string>
+    <string name="label1">Barcode finder</string>
+    <string name="wellcome">Wellcome to Sylergy!</string>
+    <string name="read_barcode_message">Manual input</string>
+    <string name="barcode_input_message">Write a barcode here…</string>
+    <string name="search_button_message">Search</string>
+    <string name="default_product_name">Product Name: XXXXXXX</string>
+    <string name="information_label">Information:</string>
+    <string name="adapted_for_label">Adapted for:</string>
+    <string name="ingredients_label">Ingredients:</string>
+</resources>
