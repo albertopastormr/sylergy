@@ -9,27 +9,6 @@
     android:background="@drawable/background2"
     tools:context=".Activities.ProductActivity">
 
-    <TextView
-        android:id="@+id/textViewProductName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="@string/default_product_name"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
-        android:layout_marginLeft="110sp"
-        android:layout_marginRight="110sp"
-        android:layout_marginBottom="20sp"
-        android:layout_marginTop="20sp"
-        android:src="@drawable/logo_v3" />
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -37,6 +16,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/default_product_name"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:layout_marginStart="100sp"
+                android:layout_marginBottom="20sp"
+                android:layout_marginTop="20sp"
+                android:src="@drawable/logo_v3" />
 
             <TextView
                 android:id="@+id/flowlayoutInformationTag"
