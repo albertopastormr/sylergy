@@ -1,4 +1,4 @@
-package com.example.example.TestClasses;
+package com.example.example.TestClasses.UnitTests;
 
 import android.support.annotation.NonNull;
 
@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class JUnitTestClasses {
+public class JUnitTestsMethods {
 
     /**
      * @param list

@@ -58,27 +58,50 @@ public class Product implements Serializable {
         this.adaptedFor = adaptedFor;
     }
 
-    public void create(){
-        Product p = new Product(this.name, this.barcode, this.ingredients, this.adaptedFor);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Productos");
-        database.child(String.valueOf(p.getBarcode())).setValue(p);
+    public boolean create(DatabaseReference ref){
+        try {
+            ref.child(this.barcode.toString()).setValue(this);
+            Thread.sleep(1000);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 
-    public void modify(Product newProduct){
-        Product p = new Product(this.name, this.barcode, this.ingredients, this.adaptedFor);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Productos");
-        database.child(String.valueOf(p.getBarcode())).setValue(newProduct);
+    public boolean modify(DatabaseReference ref, Product newProduct){
+        try{
+            ref.child(this.barcode.toString()).setValue(newProduct);
+            Thread.sleep(1000);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+
     }
 
-    public void drop(){
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Productos");
-        database.child(String.valueOf(this.getBarcode())).removeValue();
+    public boolean drop(DatabaseReference ref){
+        try{
+            ref.child(this.barcode.toString()).removeValue();
+            Thread.sleep(1000);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
     }
 
-    public void read(ValueEventListener eventListener) {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Productos");
-        Query q = database.orderByChild("barcode").equalTo(this.barcode);
-        q.addListenerForSingleValueEvent(eventListener);
+    public boolean read(DatabaseReference ref, ValueEventListener eventListener) {
+        try {
+            Query q = ref.orderByChild("barcode").equalTo(this.barcode);
+            q.addListenerForSingleValueEvent(eventListener);
+            Thread.sleep(1000);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

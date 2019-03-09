@@ -1,7 +1,7 @@
 package com.example.example;
 
 import com.example.example.Objects.Product;
-import com.example.example.TestClasses.JUnitTestClasses;
+import com.example.example.TestClasses.UnitTests.JUnitTestsMethods;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,7 +46,7 @@ public class JUnitTestWithMockito {
         PowerMockito.mockStatic(FirebaseDatabase.class);
         when(FirebaseDatabase.getInstance()).thenReturn(mockedFirebaseDatabase);
 
-        /* We emulate the behaviour of the databse reference */
+        /* We emulate the behaviour of the database reference */
         when(database.child(anyString())).thenReturn(database);
         when(database.orderByChild(anyString())).thenReturn(database);
         when(database.orderByChild(anyString()).equalTo(anyString())).thenReturn(database);
@@ -61,17 +61,17 @@ public class JUnitTestWithMockito {
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference ref = fdb.getReference("Productos");
 
-        assertTrue(JUnitTestClasses.upload(ref, p));
+        assertTrue(JUnitTestsMethods.upload(ref, p));
     }
 
     @Test
-    public void correct_getProdcutFromQuery() {
+    public void correct_getProductFromQuery() {
         p = new Product("Test_Product", 1234, null, null);
 
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
         DatabaseReference ref = fdb.getReference("Productos");
 
-        Query q = ref.orderByChild("Prodcutos").equalTo(p.getBarcode().toString()); //We emulate a query where we get the product that we uploaded
+        Query q = ref.orderByChild("Productos").equalTo(p.getBarcode().toString()); //We emulate a query where we get the product that we uploaded
 
         /* We emulate the behaviour of a query */
         doAnswer(new Answer<Void>() {
@@ -88,10 +88,6 @@ public class JUnitTestWithMockito {
             }
         }).when(q).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
-        assertNotNull(JUnitTestClasses.getProductFromQuery(q));
+        assertNotNull(JUnitTestsMethods.getProductFromQuery(q));
     }
-
-
-
-
 }
