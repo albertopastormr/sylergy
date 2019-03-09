@@ -10,4 +10,5 @@
     <string name="information_label">Information:</string>
     <string name="adapted_for_label">Adapted for:</string>
     <string name="ingredients_label">Ingredients:</string>
+    <string name="title_activity_firebase">FirebaseActivity</string>
 </resources>

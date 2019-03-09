@@ -2,7 +2,6 @@ package com.example.example.Activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.example.Objects.Product;
-import com.example.example.Objects.SimpleIdlingResource;
 import com.example.example.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,12 +25,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
+
     DatabaseReference database;
     Button b;
     EditText barcodeText;
     List<Product> list;
-
-    private SimpleIdlingResource mIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +49,9 @@ public class MainActivity extends AppCompatActivity {
                             "You have to set a barcode", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    mIdlingResource.setIdleState(false); // wait for server response
                     database = FirebaseDatabase.getInstance().getReference("Productos");
                     Query q = database.orderByChild("barcode").equalTo(Integer.parseInt(g));
                     q.addListenerForSingleValueEvent(eventListener);
-
                 }
             }
         });
@@ -65,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     ValueEventListener eventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
             list.clear();
             if(dataSnapshot.exists()) {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
@@ -80,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "The product doesn't exist", Toast.LENGTH_SHORT).show();
             }
-            mIdlingResource.setIdleState(true); // Continue testing
         }
 
         @Override
@@ -89,14 +82,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-    @VisibleForTesting
-    public SimpleIdlingResource getIdlingResource() {
-
-        if(mIdlingResource == null)
-            mIdlingResource = new SimpleIdlingResource();
-
-        return mIdlingResource;
+    public AppCompatActivity getActivity(){
+        return this;
     }
 
 }
