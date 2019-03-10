@@ -1,0 +1,20 @@
+--- 
+before_cache: 
+  - "rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock"
+  - "rm -fr $HOME/.gradle/caches/*/plugin-resolution/"
+cache: 
+  directories: 
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+install: "gradle assemble"
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk8
+language: java
+notifications: 
+  on_failure: always
+  on_success: change
+  slack: "sylergy:TEISIyT2e0IR6z2ZDFlqNUTH"
+script: "/gradlew check"
+sudo: false
