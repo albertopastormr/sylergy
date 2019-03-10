@@ -8,9 +8,7 @@ cache:
     - $HOME/.gradle/wrapper/
 install: "gradle assemble"
 jdk:
-  - oraclejdk8
-  - oraclejdk9
-  - openjdk8
+  - openjdk1.8.0_152-release
 language: java
 notifications: 
   on_failure: always
