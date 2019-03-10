@@ -39,4 +39,6 @@ notifications:
   on_failure: always
   on_success: change
   slack: "sylergy:TEISIyT2e0IR6z2ZDFlqNUTH"
-script: ./gradlew test
+script:
+  ./gradlew test
+  ./gradlew connectedAndroidTest

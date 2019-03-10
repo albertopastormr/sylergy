@@ -15,7 +15,7 @@ public class JUnitTestWithoutMockito {
     @Test
     public void highest_test(){
         Integer[] list = {1, 2, 3, 4};
-        Integer expected = 5;
+        Integer expected = 4;
         Integer result = JUnitTestsMethods.getMax(list);
 
         assertEquals(expected, result);
