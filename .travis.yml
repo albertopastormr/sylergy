@@ -40,5 +40,5 @@ notifications:
   on_success: change
   slack: "sylergy:TEISIyT2e0IR6z2ZDFlqNUTH"
 script:
-  ./gradlew test
-  ./gradlew connectedAndroidTest
+  - ./gradlew test
+  - ./gradlew connectedAndroidTest
