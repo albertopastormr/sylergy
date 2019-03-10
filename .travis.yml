@@ -25,8 +25,9 @@ before_script:
 - adb shell input keyevent 82 &
 
 before_install:
-  - yes | sdkmanager "platforms;android-28"
-
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+env: DISPLAY=:99
 before_cache: 
   - "rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock"
   - "rm -fr $HOME/.gradle/caches/*/plugin-resolution/"
@@ -39,4 +40,4 @@ notifications:
   on_failure: always
   on_success: change
   slack: "sylergy:TEISIyT2e0IR6z2ZDFlqNUTH"
-script: ./gradlew build connectedCheck
+script: mvn integration-test -B
