@@ -7,12 +7,13 @@ android:
     - build-tools-26.0.2
     - platform-tools
     - android-23
+    - extra-google-google_play_services
+    - sys-img-armeabi-v7a-android-22
+
   licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
-    - extra-google-google_play_services
-    - sys-img-x86-android-26
-    - sys-img-armeabi-v7a-android-17
+
 before_install:
   - yes | sdkmanager "platforms;android-28"
 
