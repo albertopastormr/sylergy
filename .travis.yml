@@ -1,20 +1,17 @@
-language: java
-jdk: openjdk1.8.0
-
-sudo: false
-install: gradle assemble
-script: /gradlew check
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
+--- 
+before_cache: 
+  - "rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock"
+  - "rm -fr $HOME/.gradle/caches/*/plugin-resolution/"
+cache: 
+  directories: 
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-
-notifications:
-  slack: 
-    sylergy:TEISIyT2e0IR6z2ZDFlqNUTH
-    on_success: change
-    on_failure: always 
+install: "gradle assemble"
+jdk: openjdk1.8.0
+language: java
+notifications: 
+  on_failure: always
+  on_success: change
+  slack: "sylergy:TEISIyT2e0IR6z2ZDFlqNUTH"
+script: "/gradlew check"
+sudo: false
