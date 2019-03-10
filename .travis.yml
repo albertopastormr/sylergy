@@ -1,6 +1,8 @@
---- 
-jdk: oraclejdk8
+---
 language: android
+jdk: oraclejdk8
+sudo: false
+
 android: 
   components: 
     - tools
@@ -9,10 +11,16 @@ android:
     - android-23
     - extra-google-google_play_services
     - sys-img-armeabi-v7a-android-22
-
   licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
+
+before_script:
+# Create and start emulator
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window &
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
 
 before_install:
   - yes | sdkmanager "platforms;android-28"
@@ -30,4 +38,3 @@ notifications:
   on_success: change
   slack: "sylergy:TEISIyT2e0IR6z2ZDFlqNUTH"
 script: ./gradlew connectedAndroidTest
-sudo: false
