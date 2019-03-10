@@ -6,7 +6,7 @@ android:
     - tools
     - build-tools-26.0.2
     - platform-tools
-    - android-28
+    - android-23
   licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
