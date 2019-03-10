@@ -8,8 +8,6 @@ cache:
     - $HOME/.gradle/wrapper/
 install: "gradle assemble"
 jdk:
-  - oraclejdk8
-  - oraclejdk9
   - openjdk8
 language: android
 android:
@@ -26,9 +24,7 @@ android:
   - android-28
 
   # Additional components
-  - extra-google-google_play_services
-  - extra-google-m2repository
-  - extra-android-m2repository
+ # - extra-google-google_play_services
 
   # Specify at least one system image,
   # if you need to run emulator(s) during your tests
