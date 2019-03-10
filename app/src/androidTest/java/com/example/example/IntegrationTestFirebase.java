@@ -1,8 +1,7 @@
-package TestFirebase;
+package com.example.example;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.example.Objects.Product;
 import com.google.firebase.database.DataSnapshot;
