@@ -1,9 +1,14 @@
 package com.example.sylergy.integration.firebase;
 
+import android.support.annotation.NonNull;
+
 import com.example.sylergy.objects.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseUtil {
 
@@ -43,6 +48,8 @@ public class FirebaseUtil {
         return getBaseReference().orderByChild(nameChild);
     }
 
+    /** - Utils methods of test with firebase - **/
+
     /**
      *
      * @param ref
@@ -59,4 +66,29 @@ public class FirebaseUtil {
         }
 
     }
+
+    /**
+     *
+     * @param q
+     * @return Returns a product given a query
+     */
+    public static Product getProductFromQuery(Query q){
+        try{
+            final Product[] x = new Product[1];
+            /* This quey and the databse reference are emulated by mockito */
+            q.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    x[0] = dataSnapshot.getValue(Product.class);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) { }
+            });
+            return x[0];
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
 }
