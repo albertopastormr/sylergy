@@ -1,7 +1,9 @@
-package com.example.sylergy.Integration.Product;
+package com.example.sylergy.Integration.Product.dao.imp;
 
 import android.support.annotation.NonNull;
 
+import com.example.sylergy.Integration.Product.dao.DAOProduct;
+import com.example.sylergy.Integration.firebase.FirebaseUtil;
 import com.example.sylergy.Objects.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,24 +17,27 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class DAOProductImp implements DAOProduct {
-    private List<Product> list= new ArrayList<Product>();
+
+    private List<Product> listProducts = new ArrayList<Product>();
     private Product product = null;
 
     @Override
-    public Product read(int id) {
+    public Product readById(int barcode) {
         final CountDownLatch latch = new CountDownLatch(1);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Productos");
-        Query q = database.orderByChild("barcode").equalTo(id);
+
+        DatabaseReference database = FirebaseUtil.getSpecifiedReference("Products");
+        Query q = FirebaseUtil.getQueryByChild(database, "barcode").equalTo(barcode);
+
         q.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        list.clear();
+                        listProducts.clear();
                         if(dataSnapshot.exists()) {
                             for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                list.add(d.getValue(Product.class));
+                                listProducts.add(d.getValue(Product.class));
                             }
-                            product = list.get(0);
+                            product = listProducts.get(0);
                         }
                     }
 
@@ -42,6 +47,7 @@ public class DAOProductImp implements DAOProduct {
                     }
                 }
         );
+
         try {
             latch.await();
         } catch (InterruptedException e) {
