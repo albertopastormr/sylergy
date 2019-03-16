@@ -1,4 +1,4 @@
-package com.example.sylergy.Objects;
+package com.example.sylergy.objects;
 
 public class Events {
     public static final int SEARCH_PRODUCT = 100;

@@ -1,4 +1,4 @@
-package com.example.sylergy.Objects;
+package com.example.sylergy.objects;
 
 public class Context {
     private int event;

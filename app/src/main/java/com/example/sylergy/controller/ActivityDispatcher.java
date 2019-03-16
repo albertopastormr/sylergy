@@ -1,7 +1,7 @@
-package com.example.sylergy.Controller;
+package com.example.sylergy.controller;
 
-import com.example.sylergy.Activities.UpdateActivity;
-import com.example.sylergy.Objects.Context;
+import com.example.sylergy.activities.UpdateActivity;
+import com.example.sylergy.objects.Context;
 
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;

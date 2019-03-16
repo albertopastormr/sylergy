@@ -1,7 +1,7 @@
-package com.example.sylergy.Controller;
+package com.example.sylergy.controller;
 
-import com.example.sylergy.Command.Command;
-import com.example.sylergy.Objects.Context;
+import com.example.sylergy.command.Command;
+import com.example.sylergy.objects.Context;
 
 public class Presenter {
     private static Presenter instance;

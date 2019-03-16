@@ -1,4 +1,4 @@
-package com.example.sylergy.Activities;
+package com.example.sylergy.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.sylergy.Controller.Presenter;
-import com.example.sylergy.Objects.Context;
-import com.example.sylergy.Objects.Events;
-import com.example.sylergy.Objects.Product;
+import com.example.sylergy.controller.Presenter;
+import com.example.sylergy.objects.Context;
+import com.example.sylergy.objects.Events;
+import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 
-public class MainActivity extends AppCompatActivity implements UpdateActivity{
+public class BarcodeProductActivity extends AppCompatActivity implements UpdateActivity{
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
 
     Button btnSearch;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements UpdateActivity{
     @Override
     public void updateWithCommandResult(Context context) {
         if(context.getEvent()==Events.SEARCH_PRODUCT_OK) {
-            Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+            Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product)context.getData());
             numberCodeText.setText("");
             startActivity(intent);

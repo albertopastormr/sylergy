@@ -1,5 +1,6 @@
-package com.example.sylergy.Integration.firebase;
+package com.example.sylergy.integration.firebase;
 
+import com.example.sylergy.objects.Product;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -40,5 +41,22 @@ public class FirebaseUtil {
      */
     public static Query getQueryByChild(String nameChild){
         return getBaseReference().orderByChild(nameChild);
+    }
+
+    /**
+     *
+     * @param ref
+     * @param p
+     * @return true if the upload operation was successful, otherwise it returns false
+     */
+    public static boolean upload(DatabaseReference ref, Product p) {
+        try {
+            ref.child(p.getBarcode().toString()).setValue(p);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+
     }
 }

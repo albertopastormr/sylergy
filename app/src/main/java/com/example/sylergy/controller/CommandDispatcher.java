@@ -1,7 +1,6 @@
-package com.example.sylergy.Controller;
+package com.example.sylergy.controller;
 
-import com.example.sylergy.Command.Command;
-import com.example.sylergy.R;
+import com.example.sylergy.command.Command;
 
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <result id="101">com.example.sylergy.Activities.MainActivity</result>
-    <result id="102">com.example.sylergy.Activities.MainActivity</result>
+    <result id="101">com.example.sylergy.activities.BarcodeProductActivity</result>
+    <result id="102">com.example.sylergy.activities.BarcodeProductActivity</result>
 </resources>

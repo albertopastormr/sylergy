@@ -1,4 +1,4 @@
-package com.example.sylergy.Activities;
+package com.example.sylergy.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.sylergy.Objects.Product;
+import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 
 import cn.lankton.flowlayout.FlowLayout;
@@ -31,7 +31,7 @@ public class ProductActivity extends AppCompatActivity {
         titleInformation = findViewById(R.id.textViewProductName);
         informationView = findViewById(R.id.flowlayoutInformationTag);
 
-        Product p = (Product)getIntent().getSerializableExtra(MainActivity.OBJ); //We capture the intention and obtain the object we sent from MainActivity
+        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
         titleInformation.setText(p.getName().toUpperCase()); //We update the fields
 
         flowlayoutAdaptTag= findViewById(R.id.flowlayoutAdaptTag);

@@ -1,7 +1,7 @@
-package com.example.sylergy.Integration.Product.factory;
+package com.example.sylergy.integration.product.factory;
 
-import com.example.sylergy.Integration.Product.dao.DAOProduct;
-import com.example.sylergy.Integration.Product.factory.imp.DAOProductFactoryImp;
+import com.example.sylergy.integration.product.dao.DAOProduct;
+import com.example.sylergy.integration.product.factory.imp.DAOProductFactoryImp;
 
 public abstract class DAOProductFactory {
 

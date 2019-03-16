@@ -1,9 +1,9 @@
-package com.example.sylergy.Command;
+package com.example.sylergy.command;
 
-import com.example.sylergy.Integration.Product.factory.DAOProductFactory;
-import com.example.sylergy.Objects.Context;
-import com.example.sylergy.Objects.Events;
-import com.example.sylergy.Objects.Product;
+import com.example.sylergy.integration.product.factory.DAOProductFactory;
+import com.example.sylergy.objects.Context;
+import com.example.sylergy.objects.Events;
+import com.example.sylergy.objects.Product;
 
 public class CommandSearchProduct implements Command {
 

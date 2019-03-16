@@ -1,6 +1,6 @@
 package com.example.sylergy.View.Activities.SearchActivity;
 
-import com.example.sylergy.Activities.MainActivity;
+import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.R;
 
 import org.junit.Rule;
@@ -31,7 +31,7 @@ import static org.hamcrest.Matchers.not;
 public class InterfazSearchEspressoTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<BarcodeProductActivity> mActivityRule = new ActivityTestRule<>(BarcodeProductActivity.class);
 
     @Test
     public void InterfazUITest(){
