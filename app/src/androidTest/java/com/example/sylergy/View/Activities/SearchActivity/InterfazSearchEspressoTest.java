@@ -1,6 +1,6 @@
 package com.example.sylergy.View.Activities.SearchActivity;
 
-import com.example.sylergy.MainActivity;
+import com.example.sylergy.Activities.MainActivity;
 import com.example.sylergy.R;
 
 import org.junit.Rule;
@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import static android.service.autofill.Validators.not;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
