@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+
+    <string name="test">com.example.sylergy.Command.CommandSearchProduct</string>
+    <item name="100" type="string">com.example.sylergy.Command.CommandSearchProduct</item>
+    -->
+    <string name="search_product">com.example.sylergy.command.CommandSearchProduct</string>
+</resources>

@@ -1,15 +1,15 @@
 package com.example.sylergy.objects;
 
 public class Context {
-    private int event;
+    private String event;
     private Object data;
 
-    public Context(int event, Object data) {
+    public Context(String event, Object data) {
         this.data = data;
         this.event = event;
     }
 
-    public int getEvent() {
+    public String getEvent() {
         return event;
     }
 
@@ -17,7 +17,7 @@ public class Context {
         return data;
     }
 
-    public void setEvent(int event) {
+    public void setEvent(String event) {
         this.event = event;
     }
 

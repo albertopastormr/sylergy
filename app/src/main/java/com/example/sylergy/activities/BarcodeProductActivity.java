@@ -1,6 +1,8 @@
 package com.example.sylergy.activities;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,7 @@ import com.example.sylergy.R;
 
 public class BarcodeProductActivity extends AppCompatActivity implements UpdateActivity{
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
-
+    public static android.content.Context context;
     Button btnSearch;
     EditText numberCodeText;
 
@@ -24,7 +26,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context = getApplicationContext();
         btnSearch = findViewById(R.id.btnSearch);
         numberCodeText = findViewById(R.id.barcodeText);
 
@@ -36,7 +38,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                     Toast.makeText(getApplicationContext(), "You have to set a barcode", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Presenter.getInstance().action(new Context(Events.SEARCH_PRODUCT,numberCode));
+                    Presenter.getInstance().action(new Context(Events.SEARCH_PRODUCT,Integer.valueOf(numberCode)));
                 }
             }
         });
@@ -45,7 +47,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
 
     @Override
     public void updateWithCommandResult(Context context) {
-        if(context.getEvent()==Events.SEARCH_PRODUCT_OK) {
+        if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product)context.getData());
             numberCodeText.setText("");

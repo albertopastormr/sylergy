@@ -1,5 +1,6 @@
 package com.example.sylergy.controller;
 
+import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.objects.Context;
 
@@ -21,12 +22,14 @@ public class ActivityDispatcher {
     public void dispatcher(Context context){
 
         try {
-            XPath xpath = XPathFactory.newInstance().newXPath();
+            /*XPath xpath = XPathFactory.newInstance().newXPath();
             InputSource inputSource = new InputSource("activities.xml");
             String regularExpression = "//*[@id='"+ context.getEvent() +"'][1]";
-            Node element = (Node) xpath.evaluate(regularExpression,inputSource, XPathConstants.NODE);
+            Node element = (Node) xpath.evaluate(regularExpression,inputSource, XPathConstants.NODE);*/
+            int id = BarcodeProductActivity.context.getResources().getIdentifier(context.getEvent(),"string",BarcodeProductActivity.context.getPackageName());
+            String element = BarcodeProductActivity.context.getString(id);
 
-            UpdateActivity activity = (UpdateActivity) Class.forName(element.getTextContent().trim()).getMethod("newInstance").invoke(null);
+            UpdateActivity activity = (UpdateActivity) Class.forName(element.trim()).getMethod("newInstance").invoke(null);
             activity.updateWithCommandResult(context);
         } catch (Exception e) {
             e.printStackTrace();
