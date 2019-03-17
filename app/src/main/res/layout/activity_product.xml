@@ -29,13 +29,13 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageViewProductImage"
                 android:layout_width="200sp"
                 android:layout_height="200sp"
                 android:layout_marginStart="100sp"
                 android:layout_marginBottom="20sp"
-                android:layout_marginTop="20sp"
-                android:src="@drawable/logo_v3" />
+                android:layout_marginTop="20sp"/>
+                //android:src="@drawable/logo_v3" />  //tiene que ser imagen por url
 
             <TextView
                 android:id="@+id/flowlayoutInformationTag"

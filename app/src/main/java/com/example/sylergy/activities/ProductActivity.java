@@ -3,6 +3,7 @@ package com.example.sylergy.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
+import com.squareup.picasso.Picasso;
 
 import cn.lankton.flowlayout.FlowLayout;
 
@@ -22,6 +24,8 @@ public class ProductActivity extends AppCompatActivity {
     TextView titleInformation;
     TextView informationView;
 
+    ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,9 @@ public class ProductActivity extends AppCompatActivity {
 
         titleInformation = findViewById(R.id.textViewProductName);
         informationView = findViewById(R.id.flowlayoutInformationTag);
+        imageView = findViewById(R.id.imageViewProductImage);
+
+        Picasso.with(this).load("https://spectratherapies.com/wp-content/uploads/2017/06/LSS-Autism-Acceptance.jpg").into(imageView); // imagen aleatoria
 
         Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
         titleInformation.setText(p.getName().toUpperCase()); //We update the fields
