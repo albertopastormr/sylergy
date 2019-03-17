@@ -19,18 +19,18 @@ public class ActivityDispatcher {
         return instance;
     }
 
-    public void dispatcher(Context context){
+    public void dispatcher(Context context, UpdateActivity activitySource){
 
         try {
             /*XPath xpath = XPathFactory.newInstance().newXPath();
             InputSource inputSource = new InputSource("activities.xml");
             String regularExpression = "//*[@id='"+ context.getEvent() +"'][1]";
             Node element = (Node) xpath.evaluate(regularExpression,inputSource, XPathConstants.NODE);*/
-            int id = BarcodeProductActivity.context.getResources().getIdentifier(context.getEvent(),"string",BarcodeProductActivity.context.getPackageName());
-            String element = BarcodeProductActivity.context.getString(id);
+            //int id = BarcodeProductActivity.context.getResources().getIdentifier(context.getEvent(),"string",BarcodeProductActivity.context.getPackageName());
+           // String element = BarcodeProductActivity.context.getString(id);
 
-            UpdateActivity activity = (UpdateActivity) Class.forName(element.trim()).getMethod("newInstance").invoke(null);
-            activity.updateWithCommandResult(context);
+            //UpdateActivity activity = (UpdateActivity) Class.forName(element.trim()).getMethod("newInstance").invoke(null);
+            activitySource.updateWithCommandResult(context);
         } catch (Exception e) {
             e.printStackTrace();
         }

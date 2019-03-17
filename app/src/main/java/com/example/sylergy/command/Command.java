@@ -1,7 +1,7 @@
 package com.example.sylergy.command;
 
-import com.example.sylergy.objects.Context;
+import com.example.sylergy.activities.UpdateActivity;
 
 public interface Command {
-    public Context execute(Object data);
+     void execute(Object data, UpdateActivity activitySource);
 }

@@ -1,5 +1,6 @@
 package com.example.sylergy.controller;
 
+import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.command.Command;
 import com.example.sylergy.objects.Context;
 
@@ -10,12 +11,10 @@ public class Presenter {
             instance=new Presenter();
         return instance;
     }
-    public void action(Context context){
+    public void action(Context context, UpdateActivity activitySource){
         Command command = CommandDispatcher.getInstance().dispatcher(context.getEvent());
-        Context result = null;
         if(command!=null){
-            result = command.execute(context.getData());
-            ActivityDispatcher.getInstance().dispatcher(result);
+            command.execute(context.getData(), activitySource);
         }
     }
 

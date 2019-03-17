@@ -34,18 +34,17 @@ public class InterfazSearchEspressoTest {
     public ActivityTestRule<BarcodeProductActivity> mActivityRule = new ActivityTestRule<>(BarcodeProductActivity.class);
 
     @Test
-    public void InterfazUITest(){
+    public void InterfazUITest() throws InterruptedException {
         ViewInteraction btnSearch = onView(withText("SEARCH"));
 
         //test with void bar code
         onView(withId(R.id.barcodeText)).perform(clearText());
         btnSearch.perform(click());
         onView(withText("You have to set a barcode")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
-
         //test with bar code number
         onView(withId(R.id.barcodeText)).perform(typeText("123456"),closeSoftKeyboard());
         btnSearch.perform(click());
-        onView(withText("EL CODIGO SE HA INTRODUCIDO CORRECTAMENTE PERO AQUI DEBERIA SEGUIR OTRA TAREA")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("Searching...")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
 
