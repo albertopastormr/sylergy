@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
@@ -30,7 +31,10 @@ public class IntegrationTest {
     @Before
     public void initialize() {
         listProduct = new ArrayList<>();
-        product = new Product("Test_Product", 345345, Arrays.asList("1, 2, 3"), Arrays.asList("4, 5, 6"));
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
         ref = FirebaseDatabase.getInstance().getReference("Productos");
         eventListener = new ValueEventListener() {
             @Override
@@ -47,13 +51,5 @@ public class IntegrationTest {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         };
-    }
-
-    @Test
-    public void correctReadTest() {
-        /* We previously create the product */
-        boolean resultCreate = product.create(ref);
-        assertTrue(resultCreate);
-        product.read(ref, eventListener);
     }
 }

@@ -21,7 +21,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -59,7 +59,10 @@ public class UnifiedTest {
 
     @Test
     public void correctConexionFirebase() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
 
         /* These are not real database connections, Mockito emulate it to us */
         DatabaseReference ref = FirebaseUtil.getSpecifiedReference("Products");
@@ -69,8 +72,10 @@ public class UnifiedTest {
 
     @Test
     public void correctSimulateReadProduct() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
-
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
         DatabaseReference ref = FirebaseUtil.getSpecifiedReference("Products");
 
         Query q = FirebaseUtil.getQueryByChild(ref, "barcode").equalTo(product.getBarcode().toString()); //We emulate a query where we get the product that we uploaded
@@ -94,8 +99,10 @@ public class UnifiedTest {
 
     @Test
     public void notExistSimulateReadProduct() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
-
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
         DatabaseReference ref = FirebaseUtil.getSpecifiedReference("Products");
 
         Query q = FirebaseUtil.getQueryByChild(ref, "barcode").equalTo(0); //We emulate a query where we get the product that we uploaded
@@ -106,8 +113,10 @@ public class UnifiedTest {
     // return QUERY
     @Test
     public void correctReadProduct() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
-
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
         DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
         when(daoMocked.readById(1234L)).thenReturn(query);
 
@@ -133,7 +142,10 @@ public class UnifiedTest {
     // return QUERY
     @Test
     public void notExistReadProduct() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
 
         DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
         when(daoMocked.readById(1234L)).thenReturn(query);
