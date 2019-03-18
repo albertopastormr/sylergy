@@ -12,7 +12,7 @@ public class Product implements Serializable {
     private String name;
     private String image;
     private ArrayList<HashMap<String, Object>> ingredients;
-    private HashMap<String, Object> nutriments;
+    private HashMap<String, Object> nutrimets;
 
     public Product() {}
 
@@ -20,7 +20,7 @@ public class Product implements Serializable {
         barcode = bcode;
         name = n;
         ingredients = ingreds;
-        nutriments = nutrs;
+        nutrimets = nutrs;
         image = imageUrl;
     }
 
@@ -53,12 +53,12 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public HashMap<String, Object> getNutriments() {
-        return nutriments;
+    public HashMap<String, Object> getNutrimets() {
+        return nutrimets;
     }
 
-    public void setNutriments(HashMap<String, Object> nutriments) {
-        this.nutriments = nutriments;
+    public void setNutrimets(HashMap<String, Object> nutriments) {
+        this.nutrimets = nutriments;
     }
 
     public String getImage() { return image; }

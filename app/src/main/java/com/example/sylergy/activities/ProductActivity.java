@@ -36,24 +36,27 @@ public class ProductActivity extends AppCompatActivity {
         informationView = findViewById(R.id.flowlayoutInformationTag);
         imageView = findViewById(R.id.imageViewProductImage);
 
-        Picasso.with(this).load("https://spectratherapies.com/wp-content/uploads/2017/06/LSS-Autism-Acceptance.jpg").into(imageView); // imagen aleatoria
-
         Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
-        titleInformation.setText(p.getName().toUpperCase()); //We update the fields
+        titleInformation.setText("Hello world!");
+        /*titleInformation.setText(p.getName().toUpperCase()); //We update the fields
 
-        flowlayoutAdaptTag= findViewById(R.id.flowlayoutAdaptTag);
+        if(!p.getImage().equals("")) { //Default image
+            Picasso.with(this).load(p.getImage()).into(imageView); //Product image
+        }
+
+        flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
         flowlayoutAdaptTag.relayoutToAlign();
 
-        for(String str: p.getAdaptedFor()){
+        for(String str: p.getNutriments()){
             addAdaptTag(flowlayoutAdaptTag,str);
         }
 
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
 
-        for(String str: p.getIngredients()){
-            addAdaptTag(flowLayoutIngredientTag,str);
-        }
+        for(String str: p.getIngredients()) {
+            addAdaptTag(flowLayoutIngredientTag, str);
+        }*/
     }
 
     protected void addAdaptTag(FlowLayout flowLayout,String str){

@@ -34,10 +34,10 @@
                 android:layout_height="200sp"
                 android:layout_marginStart="100sp"
                 android:layout_marginBottom="20sp"
-                android:layout_marginTop="20sp"/>
-                //android:src="@drawable/logo_v3" />  //tiene que ser imagen por url
+                android:layout_marginTop="20sp"
+                android:src="@drawable/logo_v3" />
 
-            <TextView
+                <TextView
                 android:id="@+id/flowlayoutInformationTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
