@@ -1,4 +1,4 @@
-package com.example.sylergy.Product;
+package com.example.sylergy.product;
 
 import com.example.sylergy.integration.firebase.FirebaseUtil;
 import com.example.sylergy.integration.product.dao.DAOProduct;
@@ -33,15 +33,17 @@ import static org.mockito.Mockito.when;
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({FirebaseDatabase.class})
 
-public class ProductUnifiedTest {
+public class UnifiedTest {
 
     private DatabaseReference database;
     private Product product;
+    private Query query;
 
     @Before
     public void before(){
         /* We use Mockito to emulate a Firebase connection */
         database = Mockito.mock(DatabaseReference.class);
+        query = Mockito.mock(Query.class);
 
         FirebaseDatabase mockedFirebaseDatabase = Mockito.mock(FirebaseDatabase.class);
         when(mockedFirebaseDatabase.getReference("Products")).thenReturn(database);
@@ -101,28 +103,68 @@ public class ProductUnifiedTest {
         assertNull(FirebaseUtil.getProductFromQuery(q));
     }
 
+    // return QUERY
     @Test
     public void correctReadProduct() {
         product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
 
         DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
-        when(daoMocked.readById(1234)).thenReturn(product);
+        when(daoMocked.readById(1234L)).thenReturn(query);
 
-        Product p = daoMocked.readById(1234);
+        Query q = daoMocked.readById(1234L);
 
-        assertNotNull(p);
+        /* We emulate the behaviour of a query */
+        doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener valueEventListener = (ValueEventListener) invocation.getArguments()[0];
+
+                DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
+                when(mockedDataSnapshot.getValue(Product.class)).thenReturn(product);
+
+                valueEventListener.onDataChange(mockedDataSnapshot);
+                return null;
+            }
+        }).when(q).addListenerForSingleValueEvent(any(ValueEventListener.class));
+
+        assertNotNull(FirebaseUtil.getProductFromQuery(q));
     }
 
+    // return QUERY
     @Test
     public void notExistReadProduct() {
         product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
 
         DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
-        when(daoMocked.readById(1234)).thenReturn(product);
+        when(daoMocked.readById(1234L)).thenReturn(query);
 
-        Product p = daoMocked.readById(0);
+        Query q = daoMocked.readById(1234L);
+
+        assertNull(FirebaseUtil.getProductFromQuery(q));
+    }
+
+    /**@Test
+    public void correctReadProduct() {
+        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
+
+        DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
+        when(daoMocked.readById(1234L)).thenReturn(product);
+
+        Product p = daoMocked.readById(1234L);
+
+        assertNotNull(p);
+    }*/
+
+    /**@Test
+    public void notExistReadProduct() {
+        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
+
+        DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
+        when(daoMocked.readById(1234L)).thenReturn(product);
+
+        Product p = daoMocked.readById(0L);
 
         assertNull(p);
-    }
+    }*/
 
 }
