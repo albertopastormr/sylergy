@@ -2,9 +2,6 @@ package com.example.sylergy.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.sylergy.controller.Presenter;
+import com.example.sylergy.Presenter.Presenter;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
@@ -46,7 +43,10 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                 else{
                     draw.show();
                     btnSearch.setEnabled(false);
-                    Presenter.getInstance().action(new Context(Events.SEARCH_PRODUCT, Long.parseLong(numberCode)), BarcodeProductActivity.this);
+                    Presenter.getInstance()
+                            .action(new Context(Events.SEARCH_PRODUCT,
+                                    Long.parseLong(numberCode),
+                                    BarcodeProductActivity.this));
                 }
             }
         });
@@ -57,12 +57,14 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
     public void updateWithCommandResult(Context context) {
         draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
-            Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
+            Intent intent =
+                    new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product)context.getData());
             numberCodeText.setText("");
             startActivity(intent);
         }else{
-            Toast.makeText(getApplicationContext(),"The product doesn't exist", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),
+                    "The product doesn't exist", Toast.LENGTH_SHORT).show();
         }
         btnSearch.setEnabled(true);
 

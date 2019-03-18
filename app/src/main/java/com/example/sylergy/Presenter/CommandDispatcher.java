@@ -1,24 +1,17 @@
-package com.example.sylergy.controller;
+package com.example.sylergy.Presenter;
 
 import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.command.Command;
 
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-
-import java.io.FileReader;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
 public class CommandDispatcher {
     private static CommandDispatcher instance;
+
     public static CommandDispatcher getInstance(){
         if(instance==null)
             instance=new CommandDispatcher();
         return instance;
     }
+
     public Command dispatcher(String event){
         Command command=null;
 
