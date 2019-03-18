@@ -35,7 +35,7 @@ public class IntegrationTest {
                 "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
                         "aras-grasas-si-los-comes-todos-los-dias.jpg",
                 null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
-        ref = FirebaseDatabase.getInstance().getReference("Productos");
+        ref = FirebaseDatabase.getInstance().getReference("Products");
         eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
