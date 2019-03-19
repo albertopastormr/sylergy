@@ -46,6 +46,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT,
                                     Long.parseLong(numberCode),
+                                    BarcodeProductActivity.this,
                                     BarcodeProductActivity.this));
                 }
             }

@@ -22,9 +22,9 @@ public class CommandSearchProduct implements Command {
 
         Context newContext;
         if(product == null)
-            newContext = new Context(Events.SEARCH_PRODUCT_ERROR,null,context.getActivity());
+            newContext = new Context(Events.SEARCH_PRODUCT_ERROR,null);
         else
-            newContext = new Context(Events.SEARCH_PRODUCT_OK,product,context.getActivity());
+            newContext = new Context(Events.SEARCH_PRODUCT_OK,product);
 
         Presenter.getInstance().dispatchActivity(newContext);
     }

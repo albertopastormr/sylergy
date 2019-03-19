@@ -2,6 +2,8 @@ package com.example.sylergy.Presenter;
 
 import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.command.Command;
+import com.example.sylergy.objects.Context;
+import com.example.sylergy.objects.Events;
 
 public class CommandDispatcher {
     private static CommandDispatcher instance;
@@ -12,20 +14,23 @@ public class CommandDispatcher {
         return instance;
     }
 
-    public Command dispatcher(String event){
+    //TODO repasar la forma en la que se obtiene el id
+    public Command dispatchCommand(Context context){
         Command command=null;
-
         try {
-            /*XPath xpath = XPathFactory.newInstance().newXPath();
-            InputSource inputSource = new InputSource(new FileReader("activities.xml"));
-            String regularExpression = "//*[@id='"+ event +"'][1]";
-
-            Node element = (Node) xpath.evaluate(regularExpression,inputSource, XPathConstants.NODE);*/
-            int id = BarcodeProductActivity.context.getResources().getIdentifier(event,"string",BarcodeProductActivity.context.getPackageName());
-            String element = BarcodeProductActivity.context.getString(id);
-            if(element != null){
-                command = (Command) Class.forName(element.trim()).getConstructor().newInstance();
+            switch (context.getEvent()){
+                case Events.SEARCH_PRODUCT :
+                    int id = BarcodeProductActivity.context
+                            .getResources()
+                            .getIdentifier(context.getEvent(), "string",
+                                    BarcodeProductActivity.context.getPackageName());
+                    String element = BarcodeProductActivity.context.getString(id);
+                    command = (Command) Class.forName(element.trim())
+                            .getConstructor()
+                            .newInstance();
+                    break;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error when dispatch the command");

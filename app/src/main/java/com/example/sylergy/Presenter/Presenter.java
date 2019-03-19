@@ -12,14 +12,14 @@ public class Presenter {
         return instance;
     }
     public void action(Context context){
-        Command command = CommandDispatcher.getInstance().dispatcher(context.getEvent());
+        Command command = CommandDispatcher.getInstance().dispatchCommand(context);
         if(command!=null){
             command.execute(context);
         }
     }
 
     public void dispatchActivity(Context context){
-        ActivityDispatcher.getInstance().dispatchActivity(context);
+        ActivityDispatcher.getInstance().dispatchActivity(context,context.getUpdtActivity());
     }
 
 
