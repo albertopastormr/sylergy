@@ -29,7 +29,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageViewProductImage"
                 android:layout_width="200sp"
                 android:layout_height="200sp"
                 android:layout_marginStart="100sp"
@@ -37,7 +37,7 @@
                 android:layout_marginTop="20sp"
                 android:src="@drawable/logo_v3" />
 
-            <TextView
+                <TextView
                 android:id="@+id/flowlayoutInformationTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

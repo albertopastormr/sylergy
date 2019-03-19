@@ -3,4 +3,7 @@
     <string name="product_name">Product Name:</string>
     <string name="adapted_for_label">Adapted for:</string>
     <string name="ingredients_label">Ingredients:</string>
+    <string name="barcode_product_activity_manual_input_label">Number input</string>
+    <string name="barcode_product_activity_message_inside_textbox">Enter the barcode number</string>
+    <string name="barcode_product_activity_search_button_label">SEARCH</string>
 </resources>

@@ -1,28 +1,27 @@
 package com.example.sylergy.objects;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Product implements Serializable {
 
-    private Integer barcode;
+    private String barcode;
     private String name;
-    private List<String> ingredients;
-    private List<String> adaptedFor;
-
-    private List<Product> list = null;
+    private String image;
+    private ArrayList<HashMap<String, Object>> ingredients;
+    private HashMap<String, Object> nutrimets;
 
     public Product() {}
 
-    public Product(String n, Integer bcode, List<String> ingreds, List<String> adFor) {
+    public Product(String bcode, String imageUrl, ArrayList<HashMap<String, Object>> ingreds, String n, HashMap<String, Object> nutrs) {
         barcode = bcode;
         name = n;
         ingredients = ingreds;
-        adaptedFor = adFor;
+        nutrimets = nutrs;
+        image = imageUrl;
     }
 
     public String getName() {
@@ -33,78 +32,36 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Integer getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(Integer barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 
     public List<String> getIngredients() {
-        return ingredients;
+        List<String> ret = new ArrayList<>();
+        for(HashMap<String, Object> elem: ingredients) {
+            ret.add((String)elem.get("text"));
+        }
+
+        return ret;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(ArrayList<HashMap<String, Object>> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<String> getAdaptedFor() {
-        return adaptedFor;
+    public HashMap<String, Object> getNutrimets() {
+        return nutrimets;
     }
 
-    public void setAdaptedFor(List<String> adaptedFor) {
-        this.adaptedFor = adaptedFor;
+    public void setNutrimets(HashMap<String, Object> nutriments) {
+        this.nutrimets = nutriments;
     }
 
-    public boolean create(DatabaseReference ref){
-        try {
-            ref.child(this.barcode.toString()).setValue(this);
-            Thread.sleep(1000);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
+    public String getImage() { return image; }
 
-    public boolean modify(DatabaseReference ref, Product newProduct){
-        try{
-            ref.child(this.barcode.toString()).setValue(newProduct);
-            Thread.sleep(1000);
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
-
-    }
-
-    public boolean drop(DatabaseReference ref){
-        try{
-            ref.child(this.barcode.toString()).removeValue();
-            Thread.sleep(1000);
-            return true;
-        }
-        catch(Exception e) {
-            return false;
-        }
-    }
-
-    public boolean read(DatabaseReference ref, ValueEventListener eventListener) {
-        try {
-            Query q = ref.orderByChild("barcode").equalTo(this.barcode);
-            q.addListenerForSingleValueEvent(eventListener);
-            Thread.sleep(1000);
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "-" + this.name + " - Barcode:" + this.getBarcode()+", "+getIngredients()+ ", "+getAdaptedFor().toString()+"\n\n";
-    }
+    public void setImage(String image) { this.image = image; }
 }

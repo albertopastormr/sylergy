@@ -44,8 +44,7 @@ public class InterfazSearchEspressoTest {
         //test with bar code number
         onView(withId(R.id.barcodeText)).perform(typeText("123456"),closeSoftKeyboard());
         btnSearch.perform(click());
-        onView(withText("Searching...")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        Thread.sleep(1000);
+        onView(withText("The product doesn't exist")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
-
-
 }

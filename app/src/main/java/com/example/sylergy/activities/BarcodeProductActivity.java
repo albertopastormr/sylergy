@@ -56,18 +56,18 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
 
     @Override
     public void updateWithCommandResult(Context context) {
-        draw.hide();
+        //draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent =
                     new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product)context.getData());
             numberCodeText.setText("");
             startActivity(intent);
+
         }else{
             Toast.makeText(getApplicationContext(),
                     "The product doesn't exist", Toast.LENGTH_SHORT).show();
         }
-        btnSearch.setEnabled(true);
 
     }
 }
