@@ -14,13 +14,15 @@ public class Presenter {
     public void action(Context context){
         Command command = CommandDispatcher.getInstance().dispatchCommand(context);
         if(command!=null){
-            command.execute(context);
+            try {
+                command.execute(context, context.getActivity());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void dispatchActivity(Context context){
-        ActivityDispatcher.getInstance().dispatchActivity(context,context.getUpdtActivity());
-    }
-
-
+    //public void dispatchActivity(Context context){
+    //    ActivityDispatcher.getInstance().dispatchActivity(context,context.getUpdtActivity());
+    //}
 }

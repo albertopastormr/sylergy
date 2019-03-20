@@ -1,5 +1,6 @@
 package com.example.sylergy.activities;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 
 import com.example.sylergy.Presenter.Presenter;
 import com.example.sylergy.logs.Logs;
@@ -17,17 +18,23 @@ import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 
-public class BarcodeProductActivity extends AppCompatActivity implements UpdateActivity{
+import java.util.ArrayList;
+import java.util.List;
+
+public class BarcodeProductActivity extends AppCompatActivity{
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
+
     public static android.content.Context context;
     Button btnSearch;
     EditText numberCodeText;
     ProgressDialog draw;
+    List<Product> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         context = getApplicationContext();
         btnSearch = findViewById(R.id.btnSearch);
         numberCodeText = findViewById(R.id.barcodeText);
@@ -49,7 +56,6 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT,
                                     Long.parseLong(numberCode),
-                                    BarcodeProductActivity.this,
                                     BarcodeProductActivity.this));
                 }
             }
@@ -57,16 +63,16 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
     }
 
 
-    @Override
+
+
+
     public void updateWithCommandResult(Context context) {
         //draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
-            Intent intent =
-                    new Intent(BarcodeProductActivity.this, ProductActivity.class);
-            intent.putExtra(OBJ, (Product)context.getData());
+            Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
+            intent.putExtra(OBJ, (Product) context.getData());
             numberCodeText.setText("");
             startActivity(intent);
-
         }else{
             LogsView advise = new LogsView(Logs.PRODUCT_NOT_FIND);
             advise.showInfo(this);

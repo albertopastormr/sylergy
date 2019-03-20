@@ -1,6 +1,8 @@
 package com.example.sylergy.Presenter;
 
-import com.example.sylergy.activities.UpdateActivity;
+import android.app.Activity;
+
+import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 
@@ -14,15 +16,17 @@ public class ActivityDispatcher {
         return instance;
     }
 
-    public void dispatchActivity(Context context,UpdateActivity updtActivity){
+    public void dispatchActivity(Context context, Activity activity){
+
+        BarcodeProductActivity barcodeActivity = new BarcodeProductActivity();
 
         try {
             switch(context.getEvent()) {
                 case Events.SEARCH_PRODUCT_OK :
-                    updtActivity.updateWithCommandResult(context);
+                    barcodeActivity.updateWithCommandResult(context);
                     break;
                 case Events.SEARCH_PRODUCT_ERROR :
-                    updtActivity.updateWithCommandResult(context);
+                    barcodeActivity.updateWithCommandResult(context);
                     break;
             }
 

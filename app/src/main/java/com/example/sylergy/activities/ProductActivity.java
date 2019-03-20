@@ -26,7 +26,6 @@ public class ProductActivity extends AppCompatActivity {
 
     ImageView imageView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +36,10 @@ public class ProductActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageViewProductImage);
 
         Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
-        titleInformation.setText("Hello world!");
-        /*titleInformation.setText(p.getName().toUpperCase()); //We update the fields
 
+        titleInformation.setText(p.getName().toUpperCase()); //We update the fields
+
+        /*
         if(!p.getImage().equals("")) { //Default image
             Picasso.with(this).load(p.getImage()).into(imageView); //Product image
         }

@@ -24,6 +24,7 @@ public class CommandDispatcher {
                             .getResources()
                             .getIdentifier(context.getEvent(), "string",
                                     BarcodeProductActivity.context.getPackageName());
+
                     String element = BarcodeProductActivity.context.getString(id);
                     command = (Command) Class.forName(element.trim())
                             .getConstructor()

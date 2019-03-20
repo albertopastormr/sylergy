@@ -1,7 +1,16 @@
 package com.example.sylergy.objects;
 
+import android.support.annotation.NonNull;
+
+import com.example.sylergy.integration.firebase.FirebaseUtil;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +23,8 @@ public class Product implements Serializable {
     private ArrayList<HashMap<String, Object>> ingredients;
     private HashMap<String, Object> nutrimets;
 
+    private List<Product> list = new ArrayList<Product>();
+
     public Product() {}
 
     public Product(String bcode, String imageUrl, ArrayList<HashMap<String, Object>> ingreds, String n, HashMap<String, Object> nutrs) {
@@ -22,6 +33,10 @@ public class Product implements Serializable {
         ingredients = ingreds;
         nutrimets = nutrs;
         image = imageUrl;
+    }
+
+    public Product(String bcode) {
+        barcode = bcode;
     }
 
     public String getName() {
@@ -64,4 +79,5 @@ public class Product implements Serializable {
     public String getImage() { return image; }
 
     public void setImage(String image) { this.image = image; }
+
 }

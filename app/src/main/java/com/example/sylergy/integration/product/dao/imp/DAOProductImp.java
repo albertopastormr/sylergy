@@ -33,7 +33,6 @@ public class DAOProductImp implements DAOProduct { ;
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         listProducts.add(d.getValue(Product.class));
                     }
-
                 }
                 else{
                    listProducts.add(null);
