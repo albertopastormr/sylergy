@@ -1,7 +1,8 @@
 package com.example.sylergy.integration.product.dao;
 
-import com.google.firebase.database.Query;
+import com.example.sylergy.command.Command;
+import com.example.sylergy.objects.Product;
 
 public interface DAOProduct {
-    Query readById(Long barcode);
+    void readById(long barcode, Command command);
 }

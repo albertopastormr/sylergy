@@ -1,10 +1,8 @@
 package com.example.sylergy.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +19,9 @@ import com.example.sylergy.R;
 public class BarcodeProductActivity extends AppCompatActivity implements UpdateActivity{
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
     public static android.content.Context context;
+    private UpdateActivity Instance=this;
     Button btnSearch;
     EditText numberCodeText;
-    ProgressDialog draw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +30,6 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
         context = getApplicationContext();
         btnSearch = findViewById(R.id.btnSearch);
         numberCodeText = findViewById(R.id.barcodeText);
-        draw = new ProgressDialog(this);
-        draw.setMessage("Searching...");
-        draw.setCancelable(false);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,9 +39,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                     Toast.makeText(getApplicationContext(), "You have to set a barcode", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    draw.show();
-                    btnSearch.setEnabled(false);
-                    Presenter.getInstance().action(new Context(Events.SEARCH_PRODUCT, Long.parseLong(numberCode)), BarcodeProductActivity.this);
+                    Presenter.getInstance().action(new Context(Events.SEARCH_PRODUCT,Long.valueOf(numberCode),Instance));
                 }
             }
         });
@@ -55,7 +48,6 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
 
     @Override
     public void updateWithCommandResult(Context context) {
-        draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product)context.getData());
@@ -64,7 +56,5 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
         }else{
             Toast.makeText(getApplicationContext(),"The product doesn't exist", Toast.LENGTH_SHORT).show();
         }
-        btnSearch.setEnabled(true);
-
     }
 }
