@@ -16,8 +16,8 @@ public class Product implements Serializable {
 
     public Product() {}
 
-    public Product(String bcode, String imageUrl, ArrayList<HashMap<String, Object>> ingreds, String n, HashMap<String, Object> nutrs) {
-        barcode = bcode;
+    public Product(String barcode, String imageUrl, ArrayList<HashMap<String, Object>> ingreds, String n, HashMap<String, Object> nutrs) {
+        barcode = barcode;
         name = n;
         ingredients = ingreds;
         nutrimets = nutrs;

@@ -14,6 +14,7 @@ public class CommandSearchProduct implements Command {
         this.activity=activity;
         DAOProductFactory.getInstance().generateDAOProduct().readById((long)data,this);
     }
+    @Override
     public void executeResult(Object data){
         if(data != null && data instanceof Product)
             Presenter.getInstance().actionResult(new Context(Events.SEARCH_PRODUCT_OK,data,activity));
