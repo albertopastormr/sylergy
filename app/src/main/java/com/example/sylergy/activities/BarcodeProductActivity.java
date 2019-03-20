@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sylergy.Presenter.Presenter;
+import com.example.sylergy.logs.Logs;
+import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
@@ -38,7 +40,8 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
             public void onClick(View v) {
                 String numberCode = numberCodeText.getText().toString();
                 if(numberCode.equals("")){
-                    Toast.makeText(getApplicationContext(), "You have to set a barcode", Toast.LENGTH_SHORT).show();
+                    LogsView advise = new LogsView(Logs.NO_BARCODE);
+                    advise.showInfo(BarcodeProductActivity.this);
                 }
                 else{
                     draw.show();
@@ -65,8 +68,8 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
             startActivity(intent);
 
         }else{
-            Toast.makeText(getApplicationContext(),
-                    "The product doesn't exist", Toast.LENGTH_SHORT).show();
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FIND);
+            advise.showInfo(this);
         }
 
     }
