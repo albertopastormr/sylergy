@@ -23,6 +23,7 @@ public class ActivityDispatcher {
                     break;
                 case Events.SEARCH_PRODUCT_ERROR :
                     updtActivity.updateWithCommandResult(context);
+                    break;
             }
 
         } catch (Exception e) {
