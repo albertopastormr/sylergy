@@ -1,6 +1,5 @@
 package com.example.sylergy.activities;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +51,6 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                 }
                 else{
                     draw.show();
-                    btnSearch.setEnabled(false);
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT,
                                     Long.parseLong(numberCode),
@@ -71,7 +69,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
             numberCodeText.setText("");
             startActivity(intent);
         }else{
-            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FIND);
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
             advise.showInfo(this);
         }
 

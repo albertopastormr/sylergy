@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import cn.lankton.flowlayout.FlowLayout;
 
-public abstract class ProductActivity extends AppCompatActivity implements UpdateActivity {
+public class ProductActivity extends AppCompatActivity implements UpdateActivity {
 
     FlowLayout flowlayoutAdaptTag;
     FlowLayout flowLayoutIngredientTag;
@@ -39,12 +39,12 @@ public abstract class ProductActivity extends AppCompatActivity implements Updat
 
         titleInformation.setText(p.getName().toUpperCase()); //We update the fields
 
-        /*
+
         if(!p.getImage().equals("")) { //Default image
             Picasso.with(this).load(p.getImage()).into(imageView); //Product image
         }
 
-        flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
+        /*flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
         flowlayoutAdaptTag.relayoutToAlign();
 
         for(String str: p.getNutriments()){
@@ -82,5 +82,10 @@ public abstract class ProductActivity extends AppCompatActivity implements Updat
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    @Override
+    public void updateWithCommandResult(com.example.sylergy.objects.Context context) {
+
     }
 }
