@@ -2,12 +2,14 @@ package com.example.sylergy.objects;
 
 import android.app.Activity;
 
+import com.example.sylergy.activities.UpdateActivity;
+
 public class Context {
     private String event;
     private Object data;
-    private Activity activity;
+    private UpdateActivity activity;
 
-    public Context(String event, Object data, Activity activity) {
+    public Context(String event, Object data, UpdateActivity activity) {
         this.data = data;
         this.event = event;
         this.activity = activity;
@@ -26,7 +28,7 @@ public class Context {
         return data;
     }
 
-    public Activity getActivity() {return this.activity; }
+    public UpdateActivity getActivity() {return this.activity; }
 
     public void setEvent(String event) {
         this.event = event;
@@ -36,5 +38,5 @@ public class Context {
         this.data = data;
     }
 
-    public void setActivity(Activity activity) {this.activity = activity; }
+    public void setActivity(UpdateActivity activity) {this.activity = activity; }
 }

@@ -15,7 +15,7 @@ public class Presenter {
         Command command = CommandDispatcher.getInstance().dispatchCommand(context);
         if(command!=null){
             try {
-                command.execute(context, context.getActivity());
+                command.execute(context);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

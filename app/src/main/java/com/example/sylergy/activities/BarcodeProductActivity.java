@@ -21,7 +21,7 @@ import com.example.sylergy.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarcodeProductActivity extends AppCompatActivity{
+public class BarcodeProductActivity extends AppCompatActivity implements UpdateActivity{
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
 
     public static android.content.Context context;
@@ -62,12 +62,9 @@ public class BarcodeProductActivity extends AppCompatActivity{
         });
     }
 
-
-
-
-
+    @Override
     public void updateWithCommandResult(Context context) {
-        //draw.hide();
+        draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());

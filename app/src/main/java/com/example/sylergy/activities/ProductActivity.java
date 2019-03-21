@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import cn.lankton.flowlayout.FlowLayout;
 
-public class ProductActivity extends AppCompatActivity {
+public abstract class ProductActivity extends AppCompatActivity implements UpdateActivity {
 
     FlowLayout flowlayoutAdaptTag;
     FlowLayout flowLayoutIngredientTag;

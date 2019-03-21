@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.example.sylergy.Presenter.ActivityDispatcher;
+import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
@@ -23,16 +24,17 @@ public class CommandSearchProduct implements Command {
     private List<Product> listProducts = new ArrayList<>();
     private Product product;
     private Context newContext;
-    private Activity activity;
+    private UpdateActivity activity;
 
     @Override
-    public void execute(Context context, final Activity act) throws InterruptedException {
+    public void execute(Context context) throws InterruptedException {
         //Product product = DAOProductFactory.getInstance().generateDAOProduct().readById((Long) context.getData());
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("Products");
         Query q = database.orderByChild("barcode").equalTo(String.valueOf(context.getData()));
         q.addListenerForSingleValueEvent(eventListener);
-        activity = act;
+
+        activity = context.getActivity();
 
         //if(product.getName())
         //    newContext = new Context(Events.SEARCH_PRODUCT_ERROR,null);
@@ -49,8 +51,9 @@ public class CommandSearchProduct implements Command {
                     listProducts.add(d.getValue(Product.class));
                 }
                 newContext = new Context(Events.SEARCH_PRODUCT_OK, listProducts.get(0));
+                newContext.setActivity(activity);
 
-                ActivityDispatcher.getInstance().dispatchActivity(newContext, activity);
+                ActivityDispatcher.getInstance().dispatchActivity(newContext);
             }
         }
 
