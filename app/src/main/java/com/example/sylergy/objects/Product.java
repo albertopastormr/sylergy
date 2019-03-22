@@ -58,7 +58,7 @@ public class Product implements Serializable {
     public List<String> getIngredients() {
         List<String> ret = new ArrayList<>();
         for(HashMap<String, Object> elem: ingredients) {
-            ret.add((String)elem.get("text"));
+            if(elem != null) ret.add((String)elem.get("text"));
         }
 
         return ret;
@@ -80,4 +80,12 @@ public class Product implements Serializable {
 
     public void setImage(String image) { this.image = image; }
 
+    @Override
+    public String toString() {
+        return "Name: " + this.name
+                + "\n -Barcode: " + this.barcode
+                + "\n -Ingredients: " + this.ingredients.toString()
+                + "\n -Nutrients: " + this.nutrimets.toString()
+                + "\n -URLimage: " + this.image + "\n";
+    }
 }

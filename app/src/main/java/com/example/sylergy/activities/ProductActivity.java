@@ -33,8 +33,8 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        /*titleInformation = findViewById(R.id.textViewProductName);
-        informationView = findViewById(R.id.flowlayoutInformationTag);*/
+        titleInformation = findViewById(R.id.textViewProductName);
+        informationView = findViewById(R.id.flowlayoutInformationTag);
 
         imageView = findViewById(R.id.imageViewProductImage);
 
@@ -48,14 +48,14 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
 
         for(String str: p.getNutriments()){
             addAdaptTag(flowlayoutAdaptTag,str);
-        }
+        }*/
 
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
 
         for(String str: p.getIngredients()) {
             addAdaptTag(flowLayoutIngredientTag, str);
-        }*/
+        }
     }
 
     protected void addAdaptTag(FlowLayout flowLayout,String str){
