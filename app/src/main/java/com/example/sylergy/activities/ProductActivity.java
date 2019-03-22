@@ -10,6 +10,8 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.sylergy.logs.Logs;
+import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 import com.squareup.picasso.Picasso;
@@ -31,18 +33,15 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        titleInformation = findViewById(R.id.textViewProductName);
-        informationView = findViewById(R.id.flowlayoutInformationTag);
+        /*titleInformation = findViewById(R.id.textViewProductName);
+        informationView = findViewById(R.id.flowlayoutInformationTag);*/
+
         imageView = findViewById(R.id.imageViewProductImage);
 
         Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
 
         titleInformation.setText(p.getName().toUpperCase()); //We update the fields
-
-
-        if(!p.getImage().equals("")) { //Default image
-            Picasso.with(this).load(p.getImage()).into(imageView); //Product image
-        }
+        setCustomImage(p.getImage()); //We update the image, if it exists
 
         /*flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
         flowlayoutAdaptTag.relayoutToAlign();
@@ -75,6 +74,18 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         flowLayout.addView(tv, lp);
     }
 
+    public void setCustomImage(String image) {
+        if(!image.equals("")) {
+            try {
+                Picasso.with(this).load(image).into(imageView);
+            } catch (Exception e) {
+                LogsView advise = new LogsView(Logs.IMAGE_ERROR);
+                advise.showInfo(ProductActivity.this);
+                imageView.setImageResource(R.drawable.logo_v3);
+            }
+        }
+    }
+
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -85,7 +96,5 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
     }
 
     @Override
-    public void updateWithCommandResult(com.example.sylergy.objects.Context context) {
-
-    }
+    public void updateWithCommandResult(com.example.sylergy.objects.Context context) { /* DO NOTHING */ }
 }

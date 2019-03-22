@@ -2,7 +2,7 @@ package com.example.sylergy.integration.product.dao.imp;
 
 import android.support.annotation.NonNull;
 
-import com.example.sylergy.Presenter.ActivityDispatcher;
+import com.example.sylergy.presenter.ActivityDispatcher;
 import com.example.sylergy.integration.product.dao.DAOProduct;
 import com.example.sylergy.integration.firebase.FirebaseUtil;
 

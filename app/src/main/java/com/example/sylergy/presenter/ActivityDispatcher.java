@@ -1,8 +1,5 @@
-package com.example.sylergy.Presenter;
+package com.example.sylergy.presenter;
 
-import android.app.Activity;
-
-import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 

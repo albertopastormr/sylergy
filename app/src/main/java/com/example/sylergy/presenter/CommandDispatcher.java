@@ -1,4 +1,4 @@
-package com.example.sylergy.Presenter;
+package com.example.sylergy.presenter;
 
 import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.command.Command;

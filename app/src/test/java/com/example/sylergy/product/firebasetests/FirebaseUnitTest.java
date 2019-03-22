@@ -1,7 +1,9 @@
-package com.example.sylergy.product;
+package com.example.sylergy.product.firebasetests;
 
 import com.example.sylergy.integration.firebase.FirebaseUtil;
 import com.example.sylergy.integration.product.dao.DAOProduct;
+import com.example.sylergy.objects.Context;
+import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,7 @@ import static org.mockito.Mockito.when;
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({FirebaseDatabase.class})
 
-public class UnifiedTest {
+public class FirebaseUnitTest {
 
     private DatabaseReference database;
     private Product product;
@@ -110,7 +112,6 @@ public class UnifiedTest {
         assertNull(FirebaseUtil.getProductFromQuery(q));
     }
 
-    // return QUERY
     @Test
     public void correctReadProduct() {
         product = new Product("Test_Product",
@@ -118,65 +119,26 @@ public class UnifiedTest {
                         "aras-grasas-si-los-comes-todos-los-dias.jpg",
                 null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
         DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
-        when(daoMocked.readById(1234L)).thenReturn(query);
 
-        Query q = daoMocked.readById(1234L);
+        when(daoMocked.readById(any(Long.class), any(Context.class))).thenReturn(product);
 
-        /* We emulate the behaviour of a query */
-        doAnswer(new Answer<Void>() {
-            @Override
-            public Void answer(InvocationOnMock invocation) throws Throwable {
-                ValueEventListener valueEventListener = (ValueEventListener) invocation.getArguments()[0];
-
-                DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
-                when(mockedDataSnapshot.getValue(Product.class)).thenReturn(product);
-
-                valueEventListener.onDataChange(mockedDataSnapshot);
-                return null;
-            }
-        }).when(q).addListenerForSingleValueEvent(any(ValueEventListener.class));
-
-        assertNotNull(FirebaseUtil.getProductFromQuery(q));
-    }
-
-    // return QUERY
-    @Test
-    public void notExistReadProduct() {
-        product = new Product("Test_Product",
-                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
-                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
-                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
-
-        DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
-        when(daoMocked.readById(1234L)).thenReturn(query);
-
-        Query q = daoMocked.readById(1234L);
-
-        assertNull(FirebaseUtil.getProductFromQuery(q));
-    }
-
-    /**@Test
-    public void correctReadProduct() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
-
-        DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
-        when(daoMocked.readById(1234L)).thenReturn(product);
-
-        Product p = daoMocked.readById(1234L);
+        Product p = daoMocked.readById(1234L, new Context(Events.SEARCH_PRODUCT, product.getBarcode()));
 
         assertNotNull(p);
-    }*/
+    }
 
-    /**@Test
+    @Test
     public void notExistReadProduct() {
-        product = new Product("Test_Product", 1234, Arrays.asList("IngredientOne", "IngredientTwo"), Arrays.asList("adaptedForOne", "adaptedForTwo"));
+        product = new Product("Test_Product",
+                "https://fotos01.lne.es/2018/09/23/690x278/el-alimento-con-el-que-adelgazaras-y-quem" +
+                        "aras-grasas-si-los-comes-todos-los-dias.jpg",
+                null, "N" , new HashMap<String, Object>(){{put("1","Hola");}});
 
         DAOProduct daoMocked = Mockito.mock(DAOProduct.class);
-        when(daoMocked.readById(1234L)).thenReturn(product);
+        when(daoMocked.readById(any(Long.class), any(Context.class))).thenReturn(null);
 
-        Product p = daoMocked.readById(0L);
-
+        Product p = daoMocked.readById(1234L, new Context(Events.SEARCH_PRODUCT, product.getBarcode()));
         assertNull(p);
-    }*/
+    }
 
 }

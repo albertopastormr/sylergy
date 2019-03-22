@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-import com.example.sylergy.Presenter.Presenter;
+import com.example.sylergy.presenter.Presenter;
 import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Context;
@@ -50,7 +50,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                     advise.showInfo(BarcodeProductActivity.this);
                 }
                 else{
-                    draw.show();
+                   // draw.show();
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT,
                                     Long.parseLong(numberCode),
@@ -62,7 +62,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
 
     @Override
     public void updateWithCommandResult(Context context) {
-        draw.hide();
+        // draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());
