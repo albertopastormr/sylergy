@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+import com.example.sylergy.logs.LogException;
 import com.example.sylergy.presenter.Presenter;
 import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
