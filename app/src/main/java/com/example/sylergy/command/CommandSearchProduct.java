@@ -8,10 +8,10 @@ public class CommandSearchProduct implements Command {
 
     @Override
     public void execute(Context context) {
-        Product product = DAOProductFactory.
+       DAOProductFactory.
                 getInstance().
                 generateDAOProduct().
-                readById((Long) context.getData(), context);
+                readById(context);
     }
 
 }

@@ -21,22 +21,23 @@ public class Product implements Serializable {
     private String name;
     private String image;
     private ArrayList<HashMap<String, Object>> ingredients;
-    private HashMap<String, Object> nutrimets;
+    private HashMap<String, Object> nutrients;
 
     private List<Product> list = new ArrayList<Product>();
 
     public Product() {}
 
-    public Product(String bcode, String imageUrl, ArrayList<HashMap<String, Object>> ingreds, String n, HashMap<String, Object> nutrs) {
-        barcode = bcode;
-        name = n;
-        ingredients = ingreds;
-        nutrimets = nutrs;
-        image = imageUrl;
+    public Product(String barcode, String imageUrl, ArrayList<HashMap<String, Object>> ingredients,
+                   String name, HashMap<String, Object> nutrients) {
+        this.barcode = barcode;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.nutrients = nutrients;
+        this.image = imageUrl;
     }
 
-    public Product(String bcode) {
-        barcode = bcode;
+    public Product(String barcode) {
+        this.barcode = barcode;
     }
 
     public String getName() {
@@ -68,12 +69,12 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public HashMap<String, Object> getNutrimets() {
-        return nutrimets;
+    public HashMap<String, Object> getNutrients() {
+        return nutrients;
     }
 
-    public void setNutrimets(HashMap<String, Object> nutriments) {
-        this.nutrimets = nutriments;
+    public void setNutrients(HashMap<String, Object> nutrients) {
+        this.nutrients = nutrients;
     }
 
     public String getImage() { return image; }
@@ -85,7 +86,7 @@ public class Product implements Serializable {
         return "Name: " + this.name
                 + "\n -Barcode: " + this.barcode
                 + "\n -Ingredients: " + this.ingredients.toString()
-                + "\n -Nutrients: " + this.nutrimets.toString()
+                + "\n -Nutrients: " + this.nutrients.toString()
                 + "\n -URLimage: " + this.image + "\n";
     }
 }
