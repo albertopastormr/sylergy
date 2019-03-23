@@ -5,5 +5,5 @@ import com.example.sylergy.objects.Product;
 import com.google.firebase.database.Query;
 
 public interface DAOProduct {
-    Product readById(Long barcode, Context context);
+    Product readById(final Context context);
 }

@@ -9,6 +9,7 @@ import com.example.sylergy.integration.firebase.FirebaseUtil;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
+import com.example.sylergy.presenter.Presenter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +22,13 @@ import java.util.List;
 public class DAOProductImp implements DAOProduct { ;
 
     @Override
-    public Product readById(Long barcode, final Context context) {
+    public Product readById(final Context context) {
         final List<Product> listProducts = new ArrayList<>();
         listProducts.add(null);
 
         DatabaseReference database = FirebaseUtil.getSpecifiedReference("Products");
         Query query = FirebaseUtil.getQueryByChild(database, "barcode")
-                .equalTo(barcode.toString());
+                .equalTo(context.getData().toString());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -47,7 +48,7 @@ public class DAOProductImp implements DAOProduct { ;
                     newContext.setActivity(context.getActivity());
                 }
 
-                ActivityDispatcher.getInstance().dispatchActivity(newContext);
+                Presenter.getInstance().dispatchActivity(newContext);
             }
 
             @Override

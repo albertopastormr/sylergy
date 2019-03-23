@@ -53,7 +53,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                    // draw.show();
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT,
-                                    Long.parseLong(numberCode),
+                                  numberCode,
                                     BarcodeProductActivity.this));
                 }
             }

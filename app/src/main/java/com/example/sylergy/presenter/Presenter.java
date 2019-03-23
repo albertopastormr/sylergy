@@ -22,7 +22,7 @@ public class Presenter {
         }
     }
 
-    //public void dispatchActivity(Context context){
-    //    ActivityDispatcher.getInstance().dispatchActivity(context,context.getUpdtActivity());
-    //}
+    public void dispatchActivity(Context context){
+        ActivityDispatcher.getInstance().dispatchActivity(context);
+    }
 }
