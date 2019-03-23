@@ -61,7 +61,7 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
     }
 
     @Override
-    public void updateWithCommandResult(Context context) {
+    public void updateWithCommandResult(Context context)throws LogException {
         // draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
@@ -69,8 +69,11 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
             numberCodeText.setText("");
             startActivity(intent);
         }else{
-            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
-            advise.showInfo(this);
+
+            throw new LogException(Logs.PRODUCT_NOT_FOUND, this);
+
+            /*LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
+            advise.showInfo(this);*/
         }
 
     }
