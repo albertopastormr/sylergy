@@ -16,7 +16,7 @@ public class FirebaseUtil {
      * Gets an interconnection reference with base firebase without distinction of main tag
      * @return Standard DatabaseReference
      */
-    public static DatabaseReference getBaseReference(){
+    public static DatabaseReference getDataBaseReference(){
         return FirebaseDatabase.getInstance().getReference();
     }
 
@@ -45,7 +45,7 @@ public class FirebaseUtil {
      * @return query results
      */
     public static Query getQueryByChild(String nameChild){
-        return getBaseReference().orderByChild(nameChild);
+        return getDataBaseReference().orderByChild(nameChild);
     }
 
     /** - Utils methods of test with firebase - **/
@@ -58,7 +58,7 @@ public class FirebaseUtil {
      */
     public static boolean upload(DatabaseReference ref, Product p) {
         try {
-            ref.child(p.getBarcode().toString()).setValue(p);
+            ref.child(p.getBarcode()).setValue(p);
             return true;
         }
         catch (Exception e) {

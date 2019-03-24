@@ -2,6 +2,7 @@ package com.example.sylergy.View.Activities.SearchActivity;
 
 import com.example.sylergy.activities.BarcodeProductActivity;
 import com.example.sylergy.R;
+import com.example.sylergy.logs.Logs;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,12 +41,10 @@ public class InterfazSearchEspressoTest {
         //test with void bar code
         onView(withId(R.id.barcodeText)).perform(clearText());
         btnSearch.perform(click());
-        onView(withText("You have to set a barcode")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(Logs.NO_BARCODE)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
         //test with bar code number
         onView(withId(R.id.barcodeText)).perform(typeText("123456"),closeSoftKeyboard());
         btnSearch.perform(click());
-        onView(withText("Searching...")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
-
-
 }

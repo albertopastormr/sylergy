@@ -3,18 +3,22 @@ package com.example.sylergy.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.sylergy.logs.Logs;
+import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
+import com.squareup.picasso.Picasso;
 
 import cn.lankton.flowlayout.FlowLayout;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity implements UpdateActivity {
 
     FlowLayout flowlayoutAdaptTag;
     FlowLayout flowLayoutIngredientTag;
@@ -22,6 +26,7 @@ public class ProductActivity extends AppCompatActivity {
     TextView titleInformation;
     TextView informationView;
 
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +36,25 @@ public class ProductActivity extends AppCompatActivity {
         titleInformation = findViewById(R.id.textViewProductName);
         informationView = findViewById(R.id.flowlayoutInformationTag);
 
-        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
-        titleInformation.setText(p.getName().toUpperCase()); //We update the fields
+        imageView = findViewById(R.id.imageViewProductImage);
 
-        flowlayoutAdaptTag= findViewById(R.id.flowlayoutAdaptTag);
+        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
+
+        titleInformation.setText(p.getName().toUpperCase()); //We update the fields
+        setCustomImage(p.getImage()); //We update the image, if it exists
+
+        /*flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
         flowlayoutAdaptTag.relayoutToAlign();
 
-        for(String str: p.getIngredients()){
+        for(String str: p.getNutriments()){
             addAdaptTag(flowlayoutAdaptTag,str);
-        }
+        }*/
 
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
 
-        for(String str: p.getIngredients()){
-            addAdaptTag(flowLayoutIngredientTag,str);
+        for(String str: p.getIngredients()) {
+            addAdaptTag(flowLayoutIngredientTag, str);
         }
     }
 
@@ -65,6 +74,18 @@ public class ProductActivity extends AppCompatActivity {
         flowLayout.addView(tv, lp);
     }
 
+    public void setCustomImage(String image) {
+        if(!image.equals("")) {
+            try {
+                Picasso.with(this).load(image).into(imageView);
+            } catch (Exception e) {
+                LogsView advise = new LogsView(Logs.IMAGE_ERROR);
+                advise.showInfo(ProductActivity.this);
+                imageView.setImageResource(R.drawable.logo_v3);
+            }
+        }
+    }
+
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -73,4 +94,7 @@ public class ProductActivity extends AppCompatActivity {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+
+    @Override
+    public void updateWithCommandResult(com.example.sylergy.objects.Context context) { /* DO NOTHING */ }
 }
