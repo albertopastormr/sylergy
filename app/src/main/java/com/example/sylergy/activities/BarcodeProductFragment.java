@@ -2,9 +2,12 @@ package com.example.sylergy.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,24 +24,22 @@ import com.example.sylergy.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarcodeProductActivity extends AppCompatActivity implements UpdateActivity{
+public class BarcodeProductFragment extends Fragment implements UpdateActivity{
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
 
-    public static android.content.Context context;
     Button btnSearch;
     EditText numberCodeText;
     ProgressDialog draw;
     List<Product> list = new ArrayList<>();
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search_barcode, container, false);
 
-        context = getApplicationContext();
-        btnSearch = findViewById(R.id.btnSearch);
-        numberCodeText = findViewById(R.id.barcodeText);
-        draw = new ProgressDialog(this);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        numberCodeText = view.findViewById(R.id.barcodeText);
+        draw = new ProgressDialog(getActivity());
         draw.setMessage("Searching...");
         draw.setCancelable(false);
 
@@ -48,30 +49,37 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
                 String numberCode = numberCodeText.getText().toString();
                 if(numberCode.equals("")){
                     LogsView advise = new LogsView(Logs.NO_BARCODE);
-                    advise.showInfo(BarcodeProductActivity.this);
+                    advise.showInfo(getActivity());
                 }
                 else{
-                   // draw.show();
+                    // draw.show();
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT,
-                                  numberCode,
-                                    BarcodeProductActivity.this));
+                                    numberCode,
+                                    BarcodeProductFragment.this));
                 }
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.fragment_search_barcode);
     }
 
     @Override
     public void updateWithCommandResult(Context context)throws LogException {
         // draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
-            Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
+            Intent intent = new Intent(getActivity(), ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());
             numberCodeText.setText("");
             startActivity(intent);
         }else{
 
-            throw new LogException(Logs.PRODUCT_NOT_FOUND, this);
+            throw new LogException(Logs.PRODUCT_NOT_FOUND, getActivity());
 
             /*LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
             advise.showInfo(this);*/

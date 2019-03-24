@@ -1,6 +1,6 @@
 package com.example.sylergy.View.Activities.SearchActivity;
 
-import com.example.sylergy.activities.BarcodeProductActivity;
+import com.example.sylergy.activities.BarcodeProductFragment;
 import com.example.sylergy.R;
 import com.example.sylergy.logs.Logs;
 
@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.not;
 public class InterfazSearchEspressoTest {
 
     @Rule
-    public ActivityTestRule<BarcodeProductActivity> mActivityRule = new ActivityTestRule<>(BarcodeProductActivity.class);
+    public ActivityTestRule<BarcodeProductFragment> mActivityRule = new ActivityTestRule<>(BarcodeProductFragment.class);
 
     @Test
     public void InterfazUITest() throws InterruptedException {

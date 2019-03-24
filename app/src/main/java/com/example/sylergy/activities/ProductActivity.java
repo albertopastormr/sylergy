@@ -38,7 +38,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
 
         imageView = findViewById(R.id.imageViewProductImage);
 
-        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
+        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductFragment.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductFragment
 
         titleInformation.setText(p.getName().toUpperCase()); //We update the fields
         setCustomImage(p.getImage()); //We update the image, if it exists
@@ -77,7 +77,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
     public void setCustomImage(String image) {
         if(!image.equals("")) {
             try {
-                Picasso.with(this).load(image).into(imageView);
+               // Picasso.with(this).load(image).into(imageView);
             } catch (Exception e) {
                 LogsView advise = new LogsView(Logs.IMAGE_ERROR);
                 advise.showInfo(ProductActivity.this);
