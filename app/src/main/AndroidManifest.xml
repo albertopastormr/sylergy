@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.BarcodeProductActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,14 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ProductActivity" />
-        <activity android:name=".activities.testsviews.TestViewPicasso" />
-        <activity android:name=".activities.ProductsListActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <fragment android:name=".activities.BarcodeProductFragment" />
+        <activity android:name=".activities.testsviews.TestViewPicasso" ></activity>
     </application>
 
 </manifest>

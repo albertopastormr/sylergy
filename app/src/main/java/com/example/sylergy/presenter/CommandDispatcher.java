@@ -1,6 +1,6 @@
 package com.example.sylergy.presenter;
 
-import com.example.sylergy.activities.BarcodeProductActivity;
+import com.example.sylergy.activities.MainActivity;
 import com.example.sylergy.command.Command;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
@@ -20,12 +20,12 @@ public class CommandDispatcher {
         try {
             switch (context.getEvent()){
                 case Events.SEARCH_PRODUCT :
-                    int id = BarcodeProductActivity.context
+                    int id = MainActivity.context
                             .getResources()
                             .getIdentifier(context.getEvent(), "string",
-                                    BarcodeProductActivity.context.getPackageName());
+                                    MainActivity.context.getPackageName());
 
-                    String element = BarcodeProductActivity.context.getString(id);
+                    String element = MainActivity.context.getString(id);
                     command = (Command) Class.forName(element.trim())
                             .getConstructor()
                             .newInstance();
