@@ -1,6 +1,7 @@
 package com.example.sylergy.objects;
 
 import android.support.annotation.NonNull;
+import android.widget.Adapter;
 
 import com.example.sylergy.integration.firebase.FirebaseUtil;
 import com.google.firebase.database.DataSnapshot;

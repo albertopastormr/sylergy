@@ -64,9 +64,13 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
     @Override
     public void updateWithCommandResult(Context context)throws LogException {
         // draw.hide();
-        if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
-            Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
-            intent.putExtra(OBJ, (Product) context.getData());
+
+        Intent intent = new Intent(BarcodeProductActivity.this, ProductsListActivity.class);
+        startActivity(intent);
+
+       /* if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
+            //Intent intent = new Intent(BarcodeProductActivity.this, ProductActivity.class);
+           // intent.putExtra(OBJ, (Product) context.getData());
             numberCodeText.setText("");
             startActivity(intent);
         }else{
@@ -74,8 +78,8 @@ public class BarcodeProductActivity extends AppCompatActivity implements UpdateA
             throw new LogException(Logs.PRODUCT_NOT_FOUND, this);
 
             /*LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
-            advise.showInfo(this);*/
+            advise.showInfo(this);
         }
-
+*/
     }
 }

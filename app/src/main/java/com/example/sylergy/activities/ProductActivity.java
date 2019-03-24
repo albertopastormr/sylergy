@@ -38,10 +38,11 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
 
         imageView = findViewById(R.id.imageViewProductImage);
 
-        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ); //We capture the intention and obtain the object we sent from BarcodeProductActivity
+        Product p = (Product)getIntent().getSerializableExtra(BarcodeProductActivity.OBJ);
+        //Captures the intention and obtain the object send from Barcode Product Activity
 
-        titleInformation.setText(p.getName().toUpperCase()); //We update the fields
-        setCustomImage(p.getImage()); //We update the image, if it exists
+        titleInformation.setText(p.getName().toUpperCase()); //Updates the field
+        setCustomImage(p.getImage()); //Updates the image, if it exists
 
         /*flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
         flowlayoutAdaptTag.relayoutToAlign();
@@ -60,10 +61,13 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
 
     protected void addAdaptTag(FlowLayout flowLayout,String str){
         int ranHeight = dip2px(this, 30);
-        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ranHeight);
-        lp.setMargins(dip2px(this, 10), 0, dip2px(this, 10), 0);
+        ViewGroup.MarginLayoutParams lp =
+                new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ranHeight);
+        lp.setMargins(dip2px(this, 10), 0,
+                dip2px(this, 10), 0);
         TextView tv = new TextView(this);
-        tv.setPadding(dip2px(this, 15), 0, dip2px(this, 15), 0);
+        tv.setPadding(dip2px(this, 15), 0,
+                dip2px(this, 15), 0);
         tv.setTextColor(Color.parseColor("#059011"));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
@@ -96,5 +100,6 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
     }
 
     @Override
-    public void updateWithCommandResult(com.example.sylergy.objects.Context context) { /* DO NOTHING */ }
+    public void updateWithCommandResult
+            (com.example.sylergy.objects.Context context) { /* DO NOTHING */ }
 }

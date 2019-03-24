@@ -18,7 +18,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ProductActivity" />
-        <activity android:name=".activities.testsviews.TestViewPicasso" ></activity>
+        <activity android:name=".activities.testsviews.TestViewPicasso" />
+        <activity android:name=".activities.ProductsListActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
