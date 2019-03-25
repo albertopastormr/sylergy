@@ -1,6 +1,7 @@
 package com.example.sylergy.activities;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,8 +13,14 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.sylergy.R;
+import com.example.sylergy.logs.LogException;
+import com.example.sylergy.logs.Logs;
+import com.example.sylergy.logs.LogsView;
+import com.example.sylergy.objects.Context;
+import com.example.sylergy.objects.Events;
+import com.example.sylergy.presenter.Presenter;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements UpdateActivity {
     private SearchView searchView;
     private String[] items = new String[] { "Search by name" };
     private int select=0;
@@ -36,6 +43,32 @@ public class SearchFragment extends Fragment {
                 }).create();
         dialog.show();
 
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        if (items[select].equals("")) {
+                            LogsView advise = new LogsView(Logs.NO_SEARCH_NAME);
+                            advise.showInfo(getActivity());
+                            return false;
+                        } else {
+                            // draw.show();
+                            Presenter.getInstance()
+                                    .action(new Context(Events.SEARCH_PRODUCT_NAME,
+                                            query,
+                                            SearchFragment.this));
+                            return true;
+                        }
+
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                }
+        );
+
         return view;
     }
 
@@ -43,4 +76,8 @@ public class SearchFragment extends Fragment {
         searchView.setQueryHint(items[select]);
     }
 
+    @Override
+    public void updateWithCommandResult(Context context) throws LogException {
+
+    }
 }

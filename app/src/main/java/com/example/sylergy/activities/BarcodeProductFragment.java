@@ -54,7 +54,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
                 else{
                     // draw.show();
                     Presenter.getInstance()
-                            .action(new Context(Events.SEARCH_PRODUCT,
+                            .action(new Context(Events.SEARCH_PRODUCT_BARCODE,
                                     numberCode,
                                     BarcodeProductFragment.this));
                 }

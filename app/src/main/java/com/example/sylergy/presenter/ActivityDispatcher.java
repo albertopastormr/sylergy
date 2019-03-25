@@ -17,9 +17,11 @@ public class ActivityDispatcher {
         try {
             switch(context.getEvent()) {
                 case Events.SEARCH_PRODUCT_OK :
+                case Events.SEARCH_PRODUCT_NAME_OK :
                     context.getActivity().updateWithCommandResult(context);
                     break;
                 case Events.SEARCH_PRODUCT_ERROR :
+                case Events.SEARCH_PRODUCT_NAME_ERROR :
                     context.getActivity().updateWithCommandResult(context);
                     break;
             }
