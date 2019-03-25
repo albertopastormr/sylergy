@@ -25,15 +25,15 @@ public class ProductsListActivity extends AppCompatActivity implements OnItemCli
     TextView textViewSearchResult;
     @BindView(R.id.productslist)
     RecyclerView productslist;
-
     List<Product> products;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productslist);
         ButterKnife.bind(this);
 
-        textViewSearchResult = findViewById(R.id.textViewSearchResult);
         configRecycleView();
         configAdapter();
 

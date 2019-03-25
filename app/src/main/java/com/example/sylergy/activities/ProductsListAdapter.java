@@ -73,6 +73,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+
         }
 
         void setListener(final Product product, final OnItemClickListener listener) {

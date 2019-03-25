@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ProductActivity" />
-        <fragment android:name=".activities.BarcodeProductFragment" />
-        <activity android:name=".activities.testsviews.TestViewPicasso" ></activity>
+        <activity android:name=".activities.testsviews.TestViewPicasso" />
+        <activity android:name=".activities.ProductsListActivity"></activity>
     </application>
 
 </manifest>
