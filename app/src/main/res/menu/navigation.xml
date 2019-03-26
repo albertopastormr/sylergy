@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_index"
-        android:icon="@drawable/index"
+        android:icon="@drawable/googleg_disabled_color_18"
         android:title="Home" />
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/search"
+        android:icon="@drawable/googleg_standard_color_18"
         android:title="Search" />
    <!-- <item
         android:id="@+id/navigation_user"

@@ -19,7 +19,9 @@ public class CommandDispatcher {
         Command command=null;
         try {
             switch (context.getEvent()){
-                case Events.SEARCH_PRODUCT :
+                case Events.SEARCH_PRODUCT_BARCODE:
+                case Events.SEARCH_PRODUCT_NAME:
+
                     int id = MainActivity.context
                             .getResources()
                             .getIdentifier(context.getEvent(), "string",

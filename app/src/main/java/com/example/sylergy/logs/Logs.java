@@ -11,4 +11,5 @@ public class Logs {
     public static final String INCORRECT_FORMAT = " Wrong format. ";
     public static final String UNKNOWN_ERROR = " Unknown error. ";
     public static final String IMAGE_ERROR = " There was an error while setting the image. A default image will be shown ";
+    public static final String NO_SEARCH_NAME = "Please, introduce a name.";
 }

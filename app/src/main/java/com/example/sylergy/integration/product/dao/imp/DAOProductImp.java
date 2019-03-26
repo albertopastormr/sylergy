@@ -60,4 +60,9 @@ public class DAOProductImp implements DAOProduct { ;
         return listProducts.get(0);
     }
 
+    @Override
+    public Product readByName(Context context) {
+        return null;
+    }
+
 }

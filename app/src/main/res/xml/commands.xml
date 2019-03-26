@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <command id="100">com.example.sylergy.command.CommandSearchProduct</command>
+    <command id="100">com.example.sylergy.command.CommandSearchBarcodeProduct</command>
 </resources>
