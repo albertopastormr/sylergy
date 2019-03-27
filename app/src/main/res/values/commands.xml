@@ -5,5 +5,6 @@
     <string name="test">com.example.sylergy.Command.CommandSearchBarcodeProduct</string>
     <item name="100" type="string">com.example.sylergy.Command.CommandSearchBarcodeProduct</item>
     -->
-    <string name="search_product">com.example.sylergy.command.CommandSearchProduct</string>
+    <string name="search_product">com.example.sylergy.command.CommandSearchBarcodeProduct</string>
+    <string name="search_product_name">com.example.sylergy.command.CommandSearchNameProduct</string>
 </resources>

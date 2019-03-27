@@ -52,7 +52,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
                     advise.showInfo(getActivity());
                 }
                 else{
-                    // draw.show();
+                    draw.show();
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT_BARCODE,
                                     numberCode,
@@ -71,7 +71,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
 
     @Override
     public void updateWithCommandResult(Context context)throws LogException {
-        // draw.hide();
+        draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(getActivity(), ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());
