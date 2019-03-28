@@ -10,6 +10,7 @@ import com.example.sylergy.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +25,9 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -54,6 +55,8 @@ public class InterfazSearchByNameEspressoTest {
             e.printStackTrace();
         }
 
+
+
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.navigation_search), withContentDescription("Search"),
                         childAtPosition(
@@ -72,14 +75,15 @@ public class InterfazSearchByNameEspressoTest {
                 .atPosition(0);
         appCompatCheckedTextView.perform(click());
 
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(7000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ViewInteraction viewGroup = onView(
+                allOf(childAtPosition(
+                        allOf(withId(R.id.fragment_container),
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                        0)),
+                        0),
+                        isDisplayed()));
+        viewGroup.check(matches(isDisplayed()));
 
         ViewInteraction editText = onView(
                 allOf(withId(R.id.editText), withText("Search product by name"),
@@ -89,7 +93,7 @@ public class InterfazSearchByNameEspressoTest {
                                         0),
                                 0),
                         isDisplayed()));
-        editText.check(matches(withText("Search product by name")));
+        editText.check(matches(isDisplayed()));
 
         ViewInteraction searchView = onView(
                 allOf(withId(R.id.searchView),
@@ -120,18 +124,7 @@ public class InterfazSearchByNameEspressoTest {
                                                 1)),
                                 0),
                         isDisplayed()));
-        searchAutoComplete.perform(replaceText("producto"), closeSoftKeyboard());
-
-        ViewInteraction searchAutoComplete2 = onView(
-                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("producto"),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        searchAutoComplete2.perform(pressImeActionButton());
+        searchAutoComplete.perform(replaceText("product"), closeSoftKeyboard());
     }
 
     private static Matcher<View> childAtPosition(
