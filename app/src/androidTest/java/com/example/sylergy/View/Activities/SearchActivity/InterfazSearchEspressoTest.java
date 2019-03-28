@@ -47,4 +47,7 @@ public class InterfazSearchEspressoTest {
         btnSearch.perform(click());
         onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
+
+
+
 }
