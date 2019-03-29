@@ -1,6 +1,7 @@
-package com.example.sylergy.View.Activities.SearchActivity;
+/*
+package com.example.sylergy.activities;
 
-import com.example.sylergy.activities.BarcodeProductFragment;
+import com.example.sylergy.fragments.BarcodeProductFragment;
 import com.example.sylergy.R;
 import com.example.sylergy.logs.Logs;
 
@@ -29,14 +30,16 @@ import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class InterfazSearchEspressoTest {
+public class ActivitySearchEspressoTest {
 
-  /*  @Rule
-    public ActivityTestRule<BarcodeProductFragment> mActivityRule = new ActivityTestRule<>(BarcodeProductFragment.class);*/
+  */
+/*  @Rule
+    public ActivityTestRule<BarcodeProductFragment> mActivityRule = new ActivityTestRule<>(BarcodeProductFragment.class);*//*
 
-   /*  @Test
+
+  @Test
    public void InterfazUITest() throws InterruptedException {
-        ViewInteraction btnSearch = onView(withText("SEARCH"));
+       ViewInteraction btnSearch = onView(withText("SEARCH"));
 
         //test with void bar code
         onView(withId(R.id.barcodeText)).perform(clearText());
@@ -46,8 +49,11 @@ public class InterfazSearchEspressoTest {
         onView(withId(R.id.barcodeText)).perform(typeText("123456"),closeSoftKeyboard());
         btnSearch.perform(click());
         onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+
     }
 
+}
 */
 
-}
+//TODO Fix this test

@@ -10,6 +10,8 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.sylergy.fragments.BarcodeProductFragment;
+import com.example.sylergy.logs.LogException;
 import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Product;
@@ -53,9 +55,10 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
 
-        for(String str: p.getIngredients()) {
+        //This belongs to another user history
+        /*for(String str: p.getIngredients()) {
             addAdaptTag(flowLayoutIngredientTag, str);
-        }
+        }*/
     }
 
     protected void addAdaptTag(FlowLayout flowLayout,String str){
@@ -80,8 +83,8 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
                Picasso.with(this).load(image).into(imageView);
             } catch (Exception e) {
                 LogsView advise = new LogsView(Logs.IMAGE_ERROR);
-                advise.showInfo(ProductActivity.this);
                 imageView.setImageResource(R.drawable.logo_v3);
+                throw new LogException(Logs.IMAGE_ERROR, ProductActivity.this);
             }
         }
     }

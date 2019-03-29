@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.sylergy.R;
+import com.example.sylergy.fragments.BarcodeProductFragment;
+import com.example.sylergy.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
     public static android.content.Context context;

@@ -1,4 +1,4 @@
-package com.example.sylergy.activities;
+package com.example.sylergy.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

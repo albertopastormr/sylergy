@@ -54,6 +54,20 @@ public class ProductUnitTest {
                 + "\n -URLimage: " + product.getImage() + "\n"), sameProduct.toString());
     }
 
+    @Test
+    public void getIngredientsTest() {
+        Product productToTest = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>> () {{add(new HashMap<String, Object>() {{put("text", "Ingredient1");}});}},
+                "N", new HashMap<String, Object>(){{put("1","Hola");}} );
+
+        List<String> expectedIngredients = new ArrayList<>();
+        expectedIngredients.add("Ingredient1");
+
+        assertEquals(expectedIngredients, productToTest.getIngredients());
+    }
+
 
 
 

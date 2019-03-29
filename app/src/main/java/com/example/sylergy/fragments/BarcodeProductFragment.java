@@ -1,4 +1,4 @@
-package com.example.sylergy.activities;
+package com.example.sylergy.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+import com.example.sylergy.activities.ProductActivity;
+import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.logs.LogException;
 import com.example.sylergy.presenter.Presenter;
 import com.example.sylergy.logs.Logs;
@@ -21,16 +23,12 @@ import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class BarcodeProductFragment extends Fragment implements UpdateActivity{
+public class BarcodeProductFragment extends Fragment implements UpdateActivity {
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
 
     Button btnSearch;
     EditText numberCodeText;
     ProgressDialog draw;
-    List<Product> list = new ArrayList<>();
 
     @Nullable
     @Override
@@ -70,7 +68,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
     }
 
     @Override
-    public void updateWithCommandResult(Context context)throws LogException {
+    public void updateWithCommandResult(Context context) {
         draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(getActivity(), ProductActivity.class);
@@ -78,11 +76,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
             numberCodeText.setText("");
             startActivity(intent);
         }else{
-
             throw new LogException(Logs.PRODUCT_NOT_FOUND, getActivity());
-
-            /*LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
-            advise.showInfo(this);*/
         }
 
     }

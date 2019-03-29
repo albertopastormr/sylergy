@@ -1,7 +1,6 @@
-package com.example.sylergy.activities;
+package com.example.sylergy.fragments;
 
 import android.app.AlertDialog;
-import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.sylergy.R;
+import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.logs.LogException;
 import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
@@ -40,6 +40,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
                         dialog.dismiss();
                     }
                 }).create();
+        dialog.setCancelable(false);
         dialog.show();
 
         searchView.setOnQueryTextListener(
