@@ -1,10 +1,12 @@
 package com.example.sylergy.fragments;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,15 @@ import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
+import com.example.sylergy.objects.Product;
 import com.example.sylergy.presenter.Presenter;
+
+import java.util.List;
 
 public class SearchFragment extends Fragment implements UpdateActivity {
     private SearchView searchView;
     private String[] items = new String[] { "Search by name" };
+    private ProgressDialog draw;
     private int select=0;
     private AlertDialog dialog;
 
@@ -30,6 +36,9 @@ public class SearchFragment extends Fragment implements UpdateActivity {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_name, container, false);
         searchView = view.findViewById(R.id.searchView);
+        draw = new ProgressDialog(getActivity());
+        draw.setCancelable(false);
+        draw.setMessage("Searching...");
 
         dialog = new AlertDialog.Builder(getActivity()).setTitle("Search by ...")
                 .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
@@ -52,7 +61,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
                             advise.showInfo(getActivity());
                             return false;
                         } else {
-                            // draw.show();
+                            draw.show();
                             Presenter.getInstance()
                                     .action(new Context(Events.SEARCH_PRODUCT_NAME,
                                             query,
@@ -78,6 +87,9 @@ public class SearchFragment extends Fragment implements UpdateActivity {
 
     @Override
     public void updateWithCommandResult(Context context) throws LogException {
+        draw.hide();
+        List<Product> result = (List<Product>) context.getData();
+
 
     }
 }
