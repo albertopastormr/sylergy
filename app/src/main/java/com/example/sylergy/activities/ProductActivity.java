@@ -81,7 +81,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
     public void setCustomImage(String image) {
         if(!image.equals("")) {
             try {
-               // Picasso.with(this).load(image).into(imageView);
+               Picasso.with(this).load(image).into(imageView);
             } catch (Exception e) {
                 LogsView advise = new LogsView(Logs.IMAGE_ERROR);
                 advise.showInfo(ProductActivity.this);

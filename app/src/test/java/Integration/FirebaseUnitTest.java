@@ -51,9 +51,4 @@ public class FirebaseUnitTest {
         assertEquals(query, FirebaseUtil.getQueryByChild(databaseRef,anyString()));
         assertEquals(query,FirebaseUtil.getQueryByChild(databaseRef, "name"));
     }
-
-
-
-
-
 }
