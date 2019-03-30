@@ -60,12 +60,16 @@ public class DAOProductImp implements DAOProduct { ;
 
     @Override
     public Product readByName(final Context context) {
-        final List<Product> productList = new ArrayList<>(); //We will store the products in this list.
+        //We will store the products in this list.
+        final List<Product> productList = new ArrayList<>();
         productList.add(null);
 
-        String nameToFindSimilar = (String)context.getData(); //This is the name of the product we want to find in the database
+        //This is the name of the product we want to find in the database
+        String nameToFindSimilar = (String)context.getData();
 
-        DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products"); //This is a reference to our Firebase Database.
+
+        DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products");
+        //This is a reference to our Firebase Database.
         Query findByNameQuery = databaseReference.orderByChild("name")
                 .startAt(nameToFindSimilar)
                 .endAt(nameToFindSimilar + "\uf8ff"); //We create the specific query
@@ -74,18 +78,31 @@ public class DAOProductImp implements DAOProduct { ;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productList.clear();
-                Context newContext;
+                Context newContext = null;
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot d : dataSnapshot.getChildren()) { //We recolect our data
                         productList.add(d.getValue(Product.class));
                     }
 
-                    newContext = new Context(Events.SEARCH_PRODUCT_NAME_OK, productList);
-                    newContext.setActivity(context.getActivity());
+                    if(context.getEvent().equals(Events.SEARCH_PRODUCT_NAME)) {
+                        newContext = new Context(Events.SEARCH_PRODUCT_NAME_OK, productList);
+                        newContext.setActivity(context.getActivity());
+                    }
+                    else if(context.getEvent().equals(Events.SEARCH_PRODUCT_BARCODE)){
+                        newContext = new Context(Events.SEARCH_PRODUCT_BARCODE_OK, productList);
+                        newContext.setActivity(context.getActivity());
+
+                    }
                 }
                 else {
+                    if(context.getEvent().equals(Events.SEARCH_PRODUCT_NAME)) {
                     newContext = new Context(Events.SEARCH_PRODUCT_NAME_ERROR, null);
                     newContext.setActivity(context.getActivity());
+                    }
+                    else if(context.getEvent().equals(Events.SEARCH_PRODUCT_BARCODE)){
+                        newContext = new Context(Events.SEARCH_PRODUCT_BARCODE_ERROR, productList);
+                        newContext.setActivity(context.getActivity());
+                    }
                 }
                 Presenter.getInstance().dispatchActivity(newContext);
             }
