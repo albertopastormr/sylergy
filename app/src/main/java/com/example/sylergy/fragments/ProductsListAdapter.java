@@ -42,7 +42,7 @@ public class ProductsListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if (convertView == null){
+        if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.productlist_item, null);
         }
@@ -50,8 +50,11 @@ public class ProductsListAdapter extends BaseAdapter {
         ImageView imageProduct = (ImageView) convertView.findViewById(R.id.productslist_item_Image);
         TextView textViewProduct = (TextView) convertView.findViewById(R.id.productslist_item_name);
         textViewProduct.setText(arrayListProduct.get(position).getName());
-        Picasso.with(context).load(arrayListProduct.get(position).getImage()).into(imageProduct);
-
+        try {
+            Picasso.with(context).load(arrayListProduct.get(position).getImage()).into(imageProduct);
+        } catch (Exception e) {
+            Picasso.with(context).load(R.drawable.logo_v3).into(imageProduct);
+        }
         return convertView;
     }
 }
