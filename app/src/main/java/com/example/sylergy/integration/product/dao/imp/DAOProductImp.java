@@ -1,8 +1,6 @@
 package com.example.sylergy.integration.product.dao.imp;
 
 import android.support.annotation.NonNull;
-
-import com.example.sylergy.presenter.ActivityDispatcher;
 import com.example.sylergy.integration.product.dao.DAOProduct;
 import com.example.sylergy.integration.firebase.FirebaseUtil;
 
@@ -61,8 +59,42 @@ public class DAOProductImp implements DAOProduct { ;
     }
 
     @Override
-    public Product readByName(Context context) {
-        return null;
+    public Product readByName(final Context context) {
+        final List<Product> productList = new ArrayList<>(); //We will store the products in this list.
+        productList.add(null);
+
+        String nameToFindSimilar = (String)context.getData(); //This is the name of the product we want to find in the database
+
+        DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products"); //This is a reference to our Firebase Database.
+        Query findByNameQuery = databaseReference.orderByChild("name")
+                .startAt(nameToFindSimilar)
+                .endAt(nameToFindSimilar + "\uf8ff"); //We create the specific query
+
+        findByNameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                productList.clear();
+                Context newContext;
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot d : dataSnapshot.getChildren()) { //We recolect our data
+                        productList.add(d.getValue(Product.class));
+                    }
+
+                    newContext = new Context(Events.SEARCH_PRODUCT_NAME_OK, productList);
+                    newContext.setActivity(context.getActivity());
+                }
+                else {
+                    newContext = new Context(Events.SEARCH_PRODUCT_NAME_ERROR, null);
+                    newContext.setActivity(context.getActivity());
+                }
+                Presenter.getInstance().dispatchActivity(newContext);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+        return productList.get(0);
     }
 
 }
