@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.sylergy.R;
@@ -17,19 +18,37 @@ import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
+import com.example.sylergy.objects.Product;
 import com.example.sylergy.presenter.Presenter;
 
-public class SearchFragment extends Fragment implements UpdateActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class    SearchFragment extends Fragment implements UpdateActivity {
     private SearchView searchView;
     private String[] items = new String[] { "Search by name" };
     private int select=0;
     private AlertDialog dialog;
 
+    ArrayList<Product> productList;
+
+    private ProductsListAdapter adapter;
+    private ListView listViewProduct;
+    LayoutInflater inflater;
+
+    View view;
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_name, container, false);
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        this.inflater = inflater;
+
+        view = inflater.inflate(R.layout.fragment_search_name, container, false);
         searchView = view.findViewById(R.id.searchView);
+
+        listViewProduct = (ListView) view.findViewById(R.id.products_lv_list);
+        productList = new ArrayList<>();
 
         dialog = new AlertDialog.Builder(getActivity()).setTitle("Search by ...")
                 .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
@@ -52,11 +71,12 @@ public class SearchFragment extends Fragment implements UpdateActivity {
                             advise.showInfo(getActivity());
                             return false;
                         } else {
-                            // draw.show();
+                            //draw.show();
                             Presenter.getInstance()
                                     .action(new Context(Events.SEARCH_PRODUCT_NAME,
                                             query,
                                             SearchFragment.this));
+
                             return true;
                         }
 
@@ -79,5 +99,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
     @Override
     public void updateWithCommandResult(Context context) throws LogException {
 
+        adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
+        listViewProduct.setAdapter(adapter);
     }
 }
