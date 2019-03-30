@@ -2,6 +2,7 @@ package com.example.sylergy.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +11,14 @@ import android.view.MenuItem;
 import com.example.sylergy.R;
 import com.example.sylergy.fragments.BarcodeProductFragment;
 import com.example.sylergy.fragments.SearchFragment;
+import com.example.sylergy.objects.SimpleIdlingResource;
 
 public class MainActivity extends AppCompatActivity {
     public static android.content.Context context;
+    public static SimpleIdlingResource mIdlingResource; // for espresso test
     private BottomNavigationView bottomNavigationView;
-    private Fragment[] mFragments;
+    private Fragment[] mFragments={new BarcodeProductFragment(),new SearchFragment()};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.navigation_index:
-                        loadFragment(new BarcodeProductFragment());
+                        loadFragment(mFragments[0]);
                         return true;
                     case R.id.navigation_search:
-                        loadFragment(new SearchFragment());
+                        loadFragment(mFragments[1]);
                         return true;
 
                 }
@@ -53,5 +57,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+    @VisibleForTesting
+    public SimpleIdlingResource getIdlingResource() {
+
+        if(mIdlingResource == null)
+            mIdlingResource = new SimpleIdlingResource();
+
+        return mIdlingResource;
     }
 }

@@ -80,7 +80,7 @@ public class DAOProductImp implements DAOProduct { ;
                         productList.add(d.getValue(Product.class));
                     }
 
-                    newContext = new Context(Events.SEARCH_PRODUCT_NAME_OK, productList);
+                    newContext = new Context(Events.SEARCH_PRODUCT_NAME_OK, productList,context.getActivity());
                     newContext.setActivity(context.getActivity());
                 }
                 else {

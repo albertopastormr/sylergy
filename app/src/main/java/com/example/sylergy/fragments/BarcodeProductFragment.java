@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+import com.example.sylergy.activities.MainActivity;
 import com.example.sylergy.activities.ProductActivity;
 import com.example.sylergy.activities.UpdateActivity;
-import com.example.sylergy.logs.LogException;
 import com.example.sylergy.presenter.Presenter;
 import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
@@ -37,9 +37,9 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
 
         btnSearch = view.findViewById(R.id.btnSearch);
         numberCodeText = view.findViewById(R.id.barcodeText);
-       // draw = new ProgressDialog(getActivity());
-       // draw.setMessage("Searching...");
-       // draw.setCancelable(false);
+        draw = new ProgressDialog(getActivity());
+        draw.setMessage("Searching...");
+        draw.setCancelable(false);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,11 +50,18 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
                     advise.showInfo(getActivity());
                 }
                 else{
-                    //draw.show();
+                    // mIdlingResource!=null is in test, and stop it
+                    if(MainActivity.mIdlingResource!=null)
+                        MainActivity.mIdlingResource.setIdleState(false);
+
+                    draw.show();
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT_BARCODE,
                                     numberCode,
                                     BarcodeProductFragment.this));
+
+
+
                 }
             }
         });
@@ -69,15 +76,20 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
 
     @Override
     public void updateWithCommandResult(Context context) {
-       // draw.hide();
+        draw.hide();
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(getActivity(), ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());
             numberCodeText.setText("");
             startActivity(intent);
         }else{
-            throw new LogException(Logs.PRODUCT_NOT_FOUND, getActivity());
+            //throw new LogException(Logs.PRODUCT_NOT_FOUND, getActivity());
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
+            advise.showInfo(getActivity());
         }
+        // mIdlingResource!=null is in test, and continue it
+        if(MainActivity.mIdlingResource!=null)
+            MainActivity.mIdlingResource.setIdleState(true);
 
     }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.sylergy.R;
+import com.example.sylergy.activities.MainActivity;
 import com.example.sylergy.activities.ProductActivity;
 import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.logs.LogException;
@@ -70,6 +70,9 @@ public class SearchFragment extends Fragment implements UpdateActivity {
                                             query,
                                             SearchFragment.this));
 
+                            // mIdlingResource!=null is in test, and stop it
+                            if(MainActivity.mIdlingResource!=null)
+                                MainActivity.mIdlingResource.setIdleState(false);
                             return true;
                         }
                     }
@@ -106,6 +109,10 @@ public class SearchFragment extends Fragment implements UpdateActivity {
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
             listViewProduct.setAdapter(adapter);
         }
+
+        // mIdlingResource!=null is in test, and continue it
+        if(MainActivity.mIdlingResource!=null)
+            MainActivity.mIdlingResource.setIdleState(true);
 
     }
 }
