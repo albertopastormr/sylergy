@@ -6,7 +6,10 @@
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background2"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,12 +18,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
         <ListView
             android:id="@+id/products_lv_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
         </ListView>
 
