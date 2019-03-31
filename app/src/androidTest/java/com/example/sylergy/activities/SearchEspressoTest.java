@@ -41,7 +41,7 @@ public class SearchEspressoTest {
 
     @Test
     public void searchByNameUITest(){
-        // when i finish this test and update project, the fragment was changed o(╥﹏╥)o
+        //when i finish this test and update project, the fragment was changed o(╥﹏╥)o
         /*onView(allOf(withText("Searches"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
         onView(withText("Search by name")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.searchView)).perform(click());*/
