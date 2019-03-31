@@ -70,6 +70,8 @@ public class SearchFragment extends Fragment implements UpdateActivity {
                             return false;
                         } else {
                             draw.show();
+                            //clear items of ListView
+                            listViewProduct.setAdapter(null);
                             Presenter.getInstance()
                                     .action(new Context(Events.SEARCH_PRODUCT_NAME,
                                             query,
@@ -123,14 +125,15 @@ public class SearchFragment extends Fragment implements UpdateActivity {
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
             listViewProduct.setAdapter(adapter);
         }
+        if(result == null) { //That means that there is no product with the given name
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
+            advise.showInfo(getActivity());
+        }
 
         // mIdlingResource!=null is in test, and continue it
         if(MainActivity.mIdlingResource!=null)
             MainActivity.mIdlingResource.setIdleState(true);
 
-        if(result == null) { //That means that there is no product with the given name
-            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
-            advise.showInfo(getActivity());
-        }
+
     }
 }
