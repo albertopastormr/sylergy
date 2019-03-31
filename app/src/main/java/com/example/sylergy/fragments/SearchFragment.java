@@ -24,6 +24,7 @@ import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.presenter.Presenter;
+import com.example.sylergy.utils.ArrayListUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,12 +115,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
         if (result != null && result.size() > 0 && getActivity() != null){
             productList.addAll(result);
             if(productList.size() > 1) { //Its only necessary when there is more than one product found
-                Collections.sort(productList, new Comparator<Product>() { //Alphabetically order
-                    @Override
-                    public int compare(Product o1, Product o2) {
-                        return o1.getName().compareTo(o2.getName());
-                    }
-                });
+                productList = ArrayListUtils.sortByName(productList);
             }
 
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);

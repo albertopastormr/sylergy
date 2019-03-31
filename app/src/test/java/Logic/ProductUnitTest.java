@@ -2,6 +2,7 @@ package Logic;
 
 
 import com.example.sylergy.objects.Product;
+import com.example.sylergy.utils.ArrayListUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,6 +67,45 @@ public class ProductUnitTest {
         expectedIngredients.add("Ingredient1");
 
         assertEquals(expectedIngredients, productToTest.getIngredients());
+    }
+
+    @Test
+    public void sortByNameTest() {
+        Product p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>> () {{add(new HashMap<String, Object>() {{put("text", "Ingredient1");}});}},
+                "b", new HashMap<String, Object>(){{put("1","Hola");}} );
+
+        Product p2 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>> () {{add(new HashMap<String, Object>() {{put("text", "Ingredient1");}});}},
+                "c", new HashMap<String, Object>(){{put("1","Hola");}} );
+
+        Product p3 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>> () {{add(new HashMap<String, Object>() {{put("text", "Ingredient1");}});}},
+                "a", new HashMap<String, Object>(){{put("1","Hola");}} );
+
+        ArrayList<Product> productList = new ArrayList<>();
+        productList.add(p1);
+        productList.add(p2);
+        productList.add(p3);
+
+        //Now the list is : {b, c, a}
+
+        productList = ArrayListUtils.sortByName(productList);
+
+        //Now it should be {a, b, c}
+
+        ArrayList<Product> exptectedList = new ArrayList<>();
+        exptectedList.add(p3);
+        exptectedList.add(p1);
+        exptectedList.add(p2);
+
+        assertEquals(exptectedList, productList);
     }
 
 
