@@ -17,7 +17,7 @@
             android:layout_height="49dp"
             android:layout_marginTop="8dp"
             android:iconifiedByDefault="false"
-            android:queryHint=""
+            android:queryHint="@string/barcode_product_searchbyname_fragment_message_inside_searchview"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp">
 

@@ -25,6 +25,8 @@ import com.example.sylergy.objects.Product;
 import com.example.sylergy.presenter.Presenter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchFragment extends Fragment implements UpdateActivity {
@@ -105,9 +107,22 @@ public class SearchFragment extends Fragment implements UpdateActivity {
 
         if (result != null && result.size() > 0 && getActivity() != null){
             productList.addAll(result);
+            if(productList.size() > 1) { //Its only necessary when there is more than one product found
+                Collections.sort(productList, new Comparator<Product>() { //Alphabetically order
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
+            }
+
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
             listViewProduct.setAdapter(adapter);
         }
 
+        if(result == null) { //That means that there is no product with the given name
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
+            advise.showInfo(getActivity());
+        }
     }
 }

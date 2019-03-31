@@ -9,4 +9,5 @@
     <string name="search_button_label">SEARCH</string>
     <string name="search_product_by_name_fragment_text_inside_SearchView">Please type the name of the product</string>
     <string name="search_product_by_name_fragment_title">Search product by name</string>
+    <string name="barcode_product_searchbyname_fragment_message_inside_searchview">Introduce the name of the product</string>
 </resources>
