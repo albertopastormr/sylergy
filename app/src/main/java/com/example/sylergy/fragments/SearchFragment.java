@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import com.example.sylergy.objects.Product;
 import com.example.sylergy.presenter.Presenter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchFragment extends Fragment implements UpdateActivity {
@@ -42,7 +45,9 @@ public class SearchFragment extends Fragment implements UpdateActivity {
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+                             @Nullable final ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         this.inflater = inflater;
 
@@ -106,6 +111,15 @@ public class SearchFragment extends Fragment implements UpdateActivity {
 
         if (result != null && result.size() > 0 && getActivity() != null){
             productList.addAll(result);
+            if(productList.size() > 1) { //Its only necessary when there is more than one product found
+                Collections.sort(productList, new Comparator<Product>() { //Alphabetically order
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
+            }
+
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
             listViewProduct.setAdapter(adapter);
         }
@@ -114,5 +128,9 @@ public class SearchFragment extends Fragment implements UpdateActivity {
         if(MainActivity.mIdlingResource!=null)
             MainActivity.mIdlingResource.setIdleState(true);
 
+        if(result == null) { //That means that there is no product with the given name
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
+            advise.showInfo(getActivity());
+        }
     }
 }

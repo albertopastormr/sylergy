@@ -16,25 +16,20 @@ public class CommandDispatcher {
 
     //TODO repasar la forma en la que se obtiene el id
     public Command dispatchCommand(Context context){
-        Command command=null;
+        Command command = null;
         try {
-            switch (context.getEvent()){
-                case Events.SEARCH_PRODUCT_BARCODE:
-                case Events.SEARCH_PRODUCT_NAME:
+            int id = MainActivity.context
+                    .getResources()
+                    .getIdentifier(context.getEvent(), "string",
+                            MainActivity.context.getPackageName());
 
-                    int id = MainActivity.context
-                            .getResources()
-                            .getIdentifier(context.getEvent(), "string",
-                                    MainActivity.context.getPackageName());
+            String element = MainActivity.context.getString(id);
+            command= (Command) Class.forName(element.trim())
+                    .getConstructor()
+                    .newInstance();
 
-                    String element = MainActivity.context.getString(id);
-                    command = (Command) Class.forName(element.trim())
-                            .getConstructor()
-                            .newInstance();
-                    break;
-            }
-
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error when dispatch the command");
         }

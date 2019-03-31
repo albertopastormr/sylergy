@@ -46,7 +46,7 @@ public class ProductUnitTest {
     }
 
     @Test
-    public void TryToString(){
+    public void toStringTest(){
         assertEquals(("Name: " + product.getName()
                 + "\n -Barcode: " + product.getBarcode()
                 + "\n -Ingredients: " + product.getIngredients().toString()

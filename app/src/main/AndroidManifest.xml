@@ -20,13 +20,6 @@
         <activity android:name=".activities.ProductActivity" />
         <activity android:name=".activities.testsactivities.TestViewLogsView" ></activity>
         <activity android:name=".activities.testsactivities.TestViewPicasso" ></activity>
-        <activity android:name=".fragments.ProductsListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

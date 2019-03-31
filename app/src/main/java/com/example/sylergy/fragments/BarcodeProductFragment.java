@@ -32,7 +32,9 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_barcode, container, false);
 
         btnSearch = view.findViewById(R.id.btnSearch);

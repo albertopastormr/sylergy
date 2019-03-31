@@ -29,10 +29,11 @@ import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+//TODO poner nombres de los metodos y atributos en ingles
 public class HU_1 {
 
-    String codigo;
-    String mensajedeLog;
+    private String codigo;
+    private String mensajedeLog;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -45,7 +46,8 @@ public class HU_1 {
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
         onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().
+                getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
     @Test
@@ -56,7 +58,8 @@ public class HU_1 {
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
         onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().
+                getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
     @Test
@@ -67,7 +70,8 @@ public class HU_1 {
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
         onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().
+                getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
     @Test
@@ -78,6 +82,7 @@ public class HU_1 {
         onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
         Thread.sleep(4000);
-        onView(ViewMatchers.withId(R.id.textViewProductName)).check(matches(withText("PECHUGA DE PAVO, FINAS LONCHAS")));
+        onView(ViewMatchers.withId(R.id.textViewProductName)).check(matches(
+                withText("PECHUGA DE PAVO, FINAS LONCHAS")));
     }
 }
