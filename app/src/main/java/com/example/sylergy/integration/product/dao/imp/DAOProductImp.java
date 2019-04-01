@@ -69,7 +69,7 @@ public class DAOProductImp implements DAOProduct { ;
         final String nameToFindSimilarLower = nameToFindSimilar.toLowerCase();
         DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products");
         //This is a reference to our Firebase Database.
-        Query findByNameQuery = databaseReference.orderByChild("name")
+        Query findByNameQuery = databaseReference.orderByChild("name").limitToFirst(15)
                 .startAt("*" + nameToFindSimilar) // With that the query is faster
                 .endAt(nameToFindSimilar + "\uf8ff"); //We create the specific query*/
 

@@ -44,7 +44,7 @@ public class HU_1 {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void emptyBarcodeTest() throws InterruptedException {
+    public void emptyBarcodeTest() {
         //Empty barcode field
         code = "";
         logMessage = Logs.NO_BARCODE;

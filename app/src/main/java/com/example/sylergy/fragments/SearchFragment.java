@@ -65,24 +65,19 @@ public class SearchFragment extends Fragment implements UpdateActivity {
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        if (query.equals("")) {
-                            LogsView advise = new LogsView(Logs.NO_SEARCH_NAME);
-                            advise.showInfo(getActivity());
-                            return false;
-                        } else {
-                            draw.show();
-                            //clear items of ListView
-                            listViewProduct.setAdapter(null);
-                            Presenter.getInstance()
-                                    .action(new Context(Events.SEARCH_PRODUCT_NAME,
-                                            query,
-                                            SearchFragment.this));
+                        draw.show();
+                        //clear items of ListView
+                        listViewProduct.setAdapter(null);
+                        Presenter.getInstance()
+                                .action(new Context(Events.SEARCH_PRODUCT_NAME,
+                                        query,
+                                        SearchFragment.this));
 
-                            // mIdlingResource!=null is in test, and stop it
-                            if(MainActivity.mIdlingResource!=null)
-                                MainActivity.mIdlingResource.setIdleState(false);
-                            return true;
-                        }
+                        // mIdlingResource!=null is in test, and stop it
+                        if(MainActivity.mIdlingResource!=null)
+                            MainActivity.mIdlingResource.setIdleState(false);
+
+                        return true;
                     }
 
                     @Override
@@ -107,7 +102,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
 
     @Override
     public void updateWithCommandResult(Context context) throws LogException {
-        draw.hide();
+        draw.dismiss();
         productList.clear();
 
         List<Product> result = (List<Product>) context.getData();
@@ -121,7 +116,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
             listViewProduct.setAdapter(adapter);
         }
-        if(result == null) { //That means that there is no product with the given name
+        if(result.size() == 0) { //That means that there is no product with the given name
             LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
             advise.showInfo(getActivity());
         }
