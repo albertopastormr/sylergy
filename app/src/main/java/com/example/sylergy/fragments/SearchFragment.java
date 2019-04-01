@@ -107,7 +107,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
 
     @Override
     public void updateWithCommandResult(Context context) throws LogException {
-        draw.hide();
+        draw.dismiss();
         productList.clear();
 
         List<Product> result = (List<Product>) context.getData();
