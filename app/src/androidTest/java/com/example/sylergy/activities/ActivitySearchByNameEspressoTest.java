@@ -1,3 +1,4 @@
+/*
 package com.example.sylergy.activities;
 
 
@@ -50,11 +51,13 @@ public class ActivitySearchByNameEspressoTest {
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
 
-        /*try {
+        */
+/*try {
             Thread.sleep(7000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }*//*
+
 
 
 
@@ -86,7 +89,8 @@ public class ActivitySearchByNameEspressoTest {
                         isDisplayed()));
         viewGroup.check(matches(isDisplayed()));
 
-        /*ViewInteraction editText = onView(
+        */
+/*ViewInteraction editText = onView(
                 allOf(withId(R.id.editText), withText("Search product by name"),
                         childAtPosition(
                                 childAtPosition(
@@ -94,7 +98,8 @@ public class ActivitySearchByNameEspressoTest {
                                         0),
                                 0),
                         isDisplayed()));
-        editText.check(matches(isDisplayed()));*/
+        editText.check(matches(isDisplayed()));*//*
+
 
         ViewInteraction searchView = onView(
                 allOf(withId(R.id.searchView),
@@ -106,7 +111,8 @@ public class ActivitySearchByNameEspressoTest {
                         isDisplayed()));
         searchView.check(matches(isDisplayed()));
 
-        /*ViewInteraction button = onView(
+        */
+/*ViewInteraction button = onView(
                 allOf(withId(R.id.button),
                         childAtPosition(
                                 childAtPosition(
@@ -114,7 +120,8 @@ public class ActivitySearchByNameEspressoTest {
                                         0),
                                 2),
                         isDisplayed()));
-        button.check(matches(isDisplayed()));*/
+        button.check(matches(isDisplayed()));*//*
+
 
         ViewInteraction searchAutoComplete = onView(
                 allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")),
@@ -147,3 +154,4 @@ public class ActivitySearchByNameEspressoTest {
         };
     }
 }
+*/
