@@ -3,12 +3,17 @@ package com.example.sylergy.aceptacion;
 
 import com.example.sylergy.R;
 import com.example.sylergy.activities.MainActivity;
-import com.example.sylergy.activities.ProductActivity;
+import com.example.sylergy.activities.utils.ToastMatcher;
+import com.example.sylergy.logs.Logs;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -20,7 +25,6 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -29,60 +33,67 @@ import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-//TODO poner nombres de los metodos y atributos en ingles
+
 public class HU_1 {
 
-    private String codigo;
-    private String mensajedeLog;
+    private String code;
+    private String logMessage;
+    private IdlingResource idlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void barcodeTestVacio() throws InterruptedException {
-        //numero vacio
-        codigo  = "";
-        mensajedeLog = "Please, introduce a barcode.";
+    public void emptyBarcodeTest() throws InterruptedException {
+        //Empty barcode field
+        code = "";
+        logMessage = Logs.NO_BARCODE;
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
-        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
+        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(code)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().
-                getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(logMessage)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
     @Test
-    public void barcodeTestMalEscrito() throws InterruptedException {
-        //numero con caracter no valido (caracter o letra)
-        codigo = "eetwbtebtbe";
-        mensajedeLog = "Product not found.";
+    public void badBarcodeTest() throws InterruptedException {
+        //Invalid barcode format
+        code = "eetwbtebtbe";
+        logMessage = Logs.PRODUCT_NOT_FOUND;
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
-        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
+        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(code)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().
-                getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(logMessage)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
     @Test
-    public void barcodeTestELCodigoNoSeEncuentraEnLaBaseDeDatos() throws InterruptedException {
-        //numero correcto pero no se encuentra en la base de datos
-        codigo = "2222222222222";
-        mensajedeLog = "Product not found.";
+    public void correctBarcodeAndProductNoExists() throws InterruptedException {
+        //Correct barcode but the product doesn't exists
+        code = "-1";
+        logMessage = Logs.PRODUCT_NOT_FOUND;
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
-        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
+        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(code)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        onView(withText(mensajedeLog)).inRoot(withDecorView(not(is(mActivityRule.getActivity().
-                getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText(logMessage)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
     @Test
-    public void barcodeTestTodoCorrecto() throws InterruptedException {
-        //numero correcto y se encuentra en la base de datos
-        codigo = "8480000592477";
+    public void correctBarcodeAndProductFoundTest() throws InterruptedException {
+        //Correct barcode and the product exists
+        code = "8480000592477";
         onView(ViewMatchers.withId(R.id.barcodeText)).check(matches(withText("")));
-        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(codigo)));
+        onView(ViewMatchers.withId(R.id.barcodeText)).perform(replaceText(String.valueOf(code)));
         onView(ViewMatchers.withId(R.id.btnSearch)).perform(click());
-        Thread.sleep(4000);
         onView(ViewMatchers.withId(R.id.textViewProductName)).check(matches(
                 withText("PECHUGA DE PAVO, FINAS LONCHAS")));
+    }
+
+    @Before
+    public void registerActivity(){
+        idlingResource = mActivityRule.getActivity().getIdlingResource();
+        IdlingRegistry.getInstance().register(idlingResource);
+    }
+    @After
+    public void unregisterActivity(){
+        IdlingRegistry.getInstance().unregister(idlingResource);
     }
 }

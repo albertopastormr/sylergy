@@ -79,6 +79,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
     @Override
     public void updateWithCommandResult(Context context) {
         draw.hide();
+
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(getActivity(), ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());
@@ -89,9 +90,9 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
             LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
             advise.showInfo(getActivity());
         }
+
         // mIdlingResource!=null is in test, and continue it
         if(MainActivity.mIdlingResource!=null)
             MainActivity.mIdlingResource.setIdleState(true);
-
     }
 }

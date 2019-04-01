@@ -43,7 +43,7 @@ public class ActivitySearchEspressoTest {
 
 
   @Test
-   public void searchByBarCodeUITest(){
+   public void searchByBarCodeUITest() throws InterruptedException {
       onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
       ViewInteraction btnSearch = onView(withText("SEARCH"));
 
@@ -53,11 +53,13 @@ public class ActivitySearchEspressoTest {
       onView(withId(R.id.textViewProductName)).check(matches(EspressoUtils.isEditTextValueEqualTo("Pechuga")));
 
       //test with void bar code
+      Thread.sleep(2000);
       Espresso.pressBack();
       onView(withId(R.id.barcodeText)).perform(clearText());
       btnSearch.perform(click());
       onView(withText(Logs.NO_BARCODE)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
 
+      Thread.sleep(1000);
       //test with not exist bar code
       onView(withId(R.id.barcodeText)).perform(clearText());
       onView(withId(R.id.barcodeText)).perform(typeText("123"),closeSoftKeyboard());
