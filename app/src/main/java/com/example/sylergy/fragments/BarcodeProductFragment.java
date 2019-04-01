@@ -1,4 +1,4 @@
-package com.example.sylergy.activities;
+package com.example.sylergy.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-import com.example.sylergy.logs.LogException;
+import com.example.sylergy.activities.MainActivity;
+import com.example.sylergy.activities.ProductActivity;
+import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.presenter.Presenter;
 import com.example.sylergy.logs.Logs;
 import com.example.sylergy.logs.LogsView;
@@ -21,20 +23,18 @@ import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class BarcodeProductFragment extends Fragment implements UpdateActivity{
+public class BarcodeProductFragment extends Fragment implements UpdateActivity {
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
 
     Button btnSearch;
     EditText numberCodeText;
     ProgressDialog draw;
-    List<Product> list = new ArrayList<>();
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_barcode, container, false);
 
         btnSearch = view.findViewById(R.id.btnSearch);
@@ -52,11 +52,18 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
                     advise.showInfo(getActivity());
                 }
                 else{
+                    // mIdlingResource!=null is in test, and stop it
+                    if(MainActivity.mIdlingResource!=null)
+                        MainActivity.mIdlingResource.setIdleState(false);
+
                     draw.show();
                     Presenter.getInstance()
                             .action(new Context(Events.SEARCH_PRODUCT_BARCODE,
                                     numberCode,
                                     BarcodeProductFragment.this));
+
+
+
                 }
             }
         });
@@ -70,21 +77,22 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity{
     }
 
     @Override
-    public void updateWithCommandResult(Context context)throws LogException {
+    public void updateWithCommandResult(Context context) {
         draw.hide();
+
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(getActivity(), ProductActivity.class);
             intent.putExtra(OBJ, (Product) context.getData());
             numberCodeText.setText("");
             startActivity(intent);
-        } else {
-
-            throw new LogException(Logs.PRODUCT_NOT_FOUND, getActivity());
-
-            /*LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
-            advise.showInfo(this);
+        }else{
+            //throw new LogException(Logs.PRODUCT_NOT_FOUND, getActivity());
+            LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
+            advise.showInfo(getActivity());
         }
-*/
-        }
+
+        // mIdlingResource!=null is in test, and continue it
+        if(MainActivity.mIdlingResource!=null)
+            MainActivity.mIdlingResource.setIdleState(true);
     }
 }

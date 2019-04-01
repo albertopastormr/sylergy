@@ -2,7 +2,7 @@ package com.example.sylergy.logs;
 
 import android.app.Activity;
 
-public class LogException extends Exception {
+public class LogException extends RuntimeException {
     private LogsView logsView;
 
     public LogException(String log, Activity activity){

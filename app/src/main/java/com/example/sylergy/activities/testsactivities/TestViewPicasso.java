@@ -1,4 +1,4 @@
-package com.example.sylergy.activities.testsviews;
+package com.example.sylergy.activities.testsactivities;
 
 import android.os.Bundle;
 import android.view.View;

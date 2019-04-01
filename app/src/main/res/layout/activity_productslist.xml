@@ -6,35 +6,30 @@
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background2"
-    tools:context=".activities.ProductsListActivity">
+    tools:context=".activities.MainActivity"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
-        <TextView
-            android:id="@+id/textViewSearchResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="Resultados de la búsqueda: "
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            />
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/productslist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/productlist_item"
-           >
-        </android.support.v7.widget.RecyclerView>
+        <ListView
+            android:id="@+id/products_lv_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+
+        </ListView>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

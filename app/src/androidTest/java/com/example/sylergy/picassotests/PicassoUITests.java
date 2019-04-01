@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.example.sylergy.activities.testsviews.TestViewPicasso;
+import com.example.sylergy.activities.testsactivities.TestViewPicasso;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class PicassoIntegrationTests {
+public class PicassoUITests {
 
     @Rule
     public ActivityTestRule<TestViewPicasso> mActivityRule = new ActivityTestRule<>(TestViewPicasso.class);
