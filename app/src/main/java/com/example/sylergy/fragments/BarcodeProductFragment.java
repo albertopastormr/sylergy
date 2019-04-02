@@ -78,7 +78,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
 
     @Override
     public void updateWithCommandResult(Context context) {
-        draw.hide();
+        draw.dismiss();
 
         if(context.getEvent().compareToIgnoreCase(Events.SEARCH_PRODUCT_OK) == 0) {
             Intent intent = new Intent(getActivity(), ProductActivity.class);
