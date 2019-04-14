@@ -59,7 +59,6 @@ public class SearchEspressoTest {
         onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
-
     @Before
     public void registerActivity(){
         idlingResource = mActivityRule.getActivity().getIdlingResource();

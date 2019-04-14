@@ -65,6 +65,17 @@ public class ActivitySearchEspressoTest {
       onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void nutrientsTest(){
+        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
+        ViewInteraction btnSearch = onView(withText("SEARCH"));
+
+        //product activity have nutrients text view
+        onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
+        btnSearch.perform(click());
+        onView(withText(R.string.nutrients_label)).check(matches(isDisplayed()));
+    }
+
     @Before
     public void registerActivity(){
         idlingResource = mActivityRule.getActivity().getIdlingResource();

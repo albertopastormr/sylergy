@@ -77,6 +77,21 @@
 
             </cn.lankton.flowlayout.FlowLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nutrients_label"
+                android:textSize="20sp"
+                android:layout_marginStart="20sp"
+                android:textColor="@android:color/white"/>
+            <cn.lankton.flowlayout.FlowLayout
+                android:id="@+id/flowlayoutNutrientTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:lineSpacing="10dp">
+            </cn.lankton.flowlayout.FlowLayout>
+
         </android.support.v7.widget.LinearLayoutCompat>
 
     </android.support.v4.widget.NestedScrollView>
