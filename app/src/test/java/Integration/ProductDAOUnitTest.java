@@ -60,7 +60,7 @@ public class ProductDAOUnitTest {
                 "grasas-si-los-comes-todos-los-dias.jpg");
         when(product.getIngredients()).thenReturn(null);
         when(product.getName()).thenReturn("N");
-        when(product.getNutrimets()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
+        when(product.getNutrients()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
     }
 
     @Test

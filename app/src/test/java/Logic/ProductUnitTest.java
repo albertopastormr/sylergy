@@ -43,7 +43,7 @@ public class ProductUnitTest {
                 "grasas-si-los-comes-todos-los-dias.jpg");
         when(product.getIngredients()).thenReturn(new ArrayList<String>() {{add("{1=Ingredient1}");}});
         when(product.getName()).thenReturn("N");
-        when(product.getNutrimets()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
+        when(product.getNutrients()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ProductUnitTest {
         assertEquals(("Name: " + product.getName()
                 + "\n -Barcode: " + product.getBarcode()
                 + "\n -Ingredients: " + product.getIngredients().toString()
-                + "\n -Nutrients: " + product.getNutrimets().toString()
+                + "\n -Nutrients: " + product.getNutrients().toString()
                 + "\n -URLimage: " + product.getImage() + "\n"), sameProduct.toString());
     }
 
