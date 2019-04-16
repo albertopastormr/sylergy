@@ -1,4 +1,3 @@
-
 package com.example.sylergy.activities;
 
 import com.example.sylergy.activities.utils.EspressoUtils;
@@ -20,6 +19,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -28,7 +28,6 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -59,9 +58,11 @@ public class ActivitySearchEspressoTest {
         btnSearch.perform(click());
         onView(withText(Logs.NO_BARCODE)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
 
+        Thread.sleep(3000);
+
         //test with not exist bar code
         onView(withId(R.id.barcodeText)).perform(clearText());
-        onView(withId(R.id.barcodeText)).perform(typeText("123"),closeSoftKeyboard());
+        onView(withId(R.id.barcodeText)).perform(typeText("1234"),closeSoftKeyboard());
         btnSearch.perform(click());
         onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
@@ -74,7 +75,7 @@ public class ActivitySearchEspressoTest {
         //product activity have nutrients text view
         onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
         btnSearch.perform(click());
-        onView(withText(R.string.nutrients_label)).check(matches(isDisplayed()));
+        onView(withText(R.string.nutrients_label)).check(matches(isEnabled()));
     }
 
     @Before

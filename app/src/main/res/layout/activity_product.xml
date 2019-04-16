@@ -45,12 +45,13 @@
                 android:padding="10dp" />
 
             <TextView
+                android:id="@+id/title_ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/adapted_for_label"
                 android:textSize="20sp"
                 android:layout_marginStart="20sp"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
 
             <cn.lankton.flowlayout.FlowLayout
                 android:id="@+id/flowlayoutAdaptTag"
@@ -78,12 +79,13 @@
             </cn.lankton.flowlayout.FlowLayout>
 
             <TextView
+                android:id="@+id/title_nutrients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/nutrients_label"
-                android:textSize="20sp"
                 android:layout_marginStart="20sp"
-                android:textColor="@android:color/white"/>
+                android:text="@string/nutrients_label"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
             <cn.lankton.flowlayout.FlowLayout
                 android:id="@+id/flowlayoutNutrientTag"
                 android:layout_width="match_parent"
