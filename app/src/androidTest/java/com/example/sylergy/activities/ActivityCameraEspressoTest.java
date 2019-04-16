@@ -42,9 +42,9 @@ public class ActivityCameraEspressoTest {
 
     @Test
     public void cameraButtonUITest() throws InterruptedException {
-        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
         onView(allOf(withText("Barcode"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
-        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
+        Espresso.pressBack();
+        onView(withText("Cancelled")).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 
     @Before
