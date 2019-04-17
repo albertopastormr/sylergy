@@ -1,4 +1,3 @@
-
 package com.example.sylergy.activities;
 
 import com.example.sylergy.activities.utils.EspressoUtils;
@@ -20,6 +19,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -42,27 +42,40 @@ public class ActivitySearchEspressoTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
 
-  @Test
-   public void searchByBarCodeUITest() throws InterruptedException {
-      onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
-      ViewInteraction btnSearch = onView(withText("SEARCH"));
+    @Test
+    public void searchByBarCodeUITest() throws InterruptedException {
+        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
+        ViewInteraction btnSearch = onView(withText("SEARCH"));
 
-      //test with a exist bar code
-      onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
-      btnSearch.perform(click());
-      onView(withId(R.id.textViewProductName)).check(matches(EspressoUtils.isEditTextValueEqualTo("Pechuga")));
+        //test with a exist bar code
+        onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
+        btnSearch.perform(click());
+        onView(withId(R.id.textViewProductName)).check(matches(EspressoUtils.isEditTextValueEqualTo("Pechuga")));
 
-      //test with void bar code
-      Espresso.pressBack();
-      onView(withId(R.id.barcodeText)).perform(clearText());
-      btnSearch.perform(click());
-      onView(withText(Logs.NO_BARCODE)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
+        //test with void bar code
+        Espresso.pressBack();
+        onView(withId(R.id.barcodeText)).perform(clearText());
+        btnSearch.perform(click());
+        onView(withText(Logs.NO_BARCODE)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
 
-      //test with not exist bar code
-      onView(withId(R.id.barcodeText)).perform(clearText());
-      onView(withId(R.id.barcodeText)).perform(typeText("123"),closeSoftKeyboard());
-      btnSearch.perform(click());
-      onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
+        Thread.sleep(3000);
+
+        //test with not exist bar code
+        onView(withId(R.id.barcodeText)).perform(clearText());
+        onView(withId(R.id.barcodeText)).perform(typeText("1234"),closeSoftKeyboard());
+        btnSearch.perform(click());
+        onView(withText(Logs.PRODUCT_NOT_FOUND)).inRoot(new ToastMatcher()).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void nutrientsTest(){
+        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
+        ViewInteraction btnSearch = onView(withText("SEARCH"));
+
+        //product activity have nutrients text view
+        onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
+        btnSearch.perform(click());
+        onView(withText(R.string.nutrients_label)).check(matches(isEnabled()));
     }
 
     @Before
@@ -75,4 +88,25 @@ public class ActivitySearchEspressoTest {
         IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
+    @Test
+    public void ingredientTest(){
+        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
+        ViewInteraction btnSearch = onView(withText("SEARCH"));
+
+        //product activity have nutrients text view
+        onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
+        btnSearch.perform(click());
+        onView(withText(R.string.ingredients_label)).check(matches(isEnabled()));
+    }
+
+    @Test
+    public void ingredientFlowTest(){
+        onView(allOf(withText("Home"),isDescendantOfA(withId(R.id.bottomNavigationView)),isDisplayed())).perform(click());
+        ViewInteraction btnSearch = onView(withText("SEARCH"));
+
+        //product activity have nutrients text view
+        onView(withId(R.id.barcodeText)).perform(typeText("8480000592477"),closeSoftKeyboard());
+        btnSearch.perform(click());
+        onView(withId(R.id.flowlayoutIngredientTag)).check(matches(isEnabled()));
+    }
 }

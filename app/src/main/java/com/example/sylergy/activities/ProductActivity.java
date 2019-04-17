@@ -56,9 +56,11 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         flowLayoutIngredientTag.relayoutToCompress();
 
         //This belongs to another user history
-        /*for(String str: p.getIngredients()) {
+        for(String str: p.getIngredients()) {
             addAdaptTag(flowLayoutIngredientTag, str);
-        }*/
+        }
+
+
     }
 
     protected void addAdaptTag(FlowLayout flowLayout,String str){

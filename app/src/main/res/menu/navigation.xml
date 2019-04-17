@@ -3,13 +3,14 @@
     <item
         android:id="@+id/navigation_index"
         android:icon="@drawable/index"
-        android:title="Home" />
+        android:title="@string/navigation_home" />
+    <item
+        android:id="@+id/navigation_barcode"
+        android:icon="@drawable/camera"
+        android:title="@string/navigation_barcode" />
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/search"
-        android:title="Searches" />
-   <!-- <item
-        android:id="@+id/navigation_user"
-        android:icon="@drawable/user"
-        android:title="User" />-->
+        android:title="@string/navigation_searches" />
+
 </menu>
