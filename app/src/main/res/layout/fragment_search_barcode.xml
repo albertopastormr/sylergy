@@ -57,6 +57,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/numberTextView" />
 
+        <ImageButton
+            android:id="@+id/btnCamera"
+            android:layout_width="51dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/camera_green"
+            android:contentDescription="TODO"
+            app:layout_constraintBottom_toTopOf="@+id/btnSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/barcodeText"
+            app:layout_constraintTop_toBottomOf="@+id/numberTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="159dp"
