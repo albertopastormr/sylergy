@@ -14,4 +14,5 @@
     <string name="navigation_home">Home</string>
     <string name="navigation_barcode">Barcode</string>
     <string name="navigation_searches">Searches</string>
+    <string name="new_product">New Product</string>
 </resources>
