@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.example.sylergy.R;
 import com.example.sylergy.fragments.BarcodeProductFragment;
-import com.example.sylergy.fragments.CameraFragment;
+import com.example.sylergy.fragments.CreateProductFragment;
 import com.example.sylergy.fragments.SearchFragment;
 import com.example.sylergy.objects.SimpleIdlingResource;
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public static android.content.Context context;
     public static SimpleIdlingResource mIdlingResource; // for espresso test
     private BottomNavigationView bottomNavigationView;
-    private Fragment[] mFragments={new BarcodeProductFragment(), new SearchFragment(), new CameraFragment()};
+    private Fragment[] mFragments={new BarcodeProductFragment(), new SearchFragment(), new CreateProductFragment()};
 
 
     @Override
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_search:
                         loadFragment(mFragments[1]);
                         return true;
-                    /*case R.id.navigation_barcode:
+                    case R.id.navigation_new_product:
                         loadFragment(mFragments[2]);
-                        return true;*/
+                        return true;
                 }
                 return false;
             }
