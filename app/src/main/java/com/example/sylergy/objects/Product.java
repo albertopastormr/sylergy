@@ -60,7 +60,7 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public List<Map.Entry<String, Object>> getNutrients() {
+    /*public List<Map.Entry<String, Object>> getNutrients() {
         ArrayList<Map.Entry<String, Object>> nut100gr = new ArrayList<>();
         ArrayList<Map.Entry<String, Object>> nut = new ArrayList<>();
         nut.addAll(nutrients.entrySet());
@@ -74,7 +74,25 @@ public class Product implements Serializable {
             }
         }
         return nut100gr;
+    }*/
+
+    /* Alternative Version */
+    public HashMap<String, Object> getNutrients() {
+        HashMap<String, Object> toReturn = new HashMap<>();
+        for(String nutrient_name: nutrients.keySet()) {
+            if(nutrient_name.contains("_100g") &&
+                    !nutrient_name.equals("nova-group_100g") &&
+                    !nutrient_name.equals("nutrition-score-uk_100g") &&
+                    !nutrient_name.equals("nutrition-score-fr_100g") ) {
+                toReturn.put(nutrient_name.substring(0, nutrient_name.length() - 5), //_100g is 5 characters long
+                        nutrients.get(nutrient_name));
+            }
+        }
+
+        return toReturn;
     }
+
+
 
     public void setNutrients(HashMap<String, Object> nutrients) {
         this.nutrients = nutrients;
