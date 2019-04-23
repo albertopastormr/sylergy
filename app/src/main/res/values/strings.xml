@@ -3,6 +3,7 @@
     <string name="product_name">Product Name:</string>
     <string name="adapted_for_label">Adapted for:</string>
     <string name="ingredients_label">Ingredients:</string>
+    <string name="nutrients_label">Nutrients:</string>
     <string name="barcode_product_activity_manual_input_label">Number input</string>
     <string name="barcode_product_activity_message_inside_textbox">Enter the barcode number</string>
     <string name="barcode_product_activity_search_button_label">SEARCH</string>
@@ -10,4 +11,8 @@
     <string name="search_product_by_name_fragment_text_inside_SearchView">Please type the name of the product</string>
     <string name="search_product_by_name_fragment_title">Search product by name</string>
     <string name="barcode_product_searchbyname_fragment_message_inside_searchview">Introduce the name of the product</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_barcode">Barcode</string>
+    <string name="navigation_searches">Searches</string>
+    <string name="new_product">New Product</string>
 </resources>

@@ -43,7 +43,7 @@ public class ProductUnitTest {
                 "grasas-si-los-comes-todos-los-dias.jpg");
         when(product.getIngredients()).thenReturn(new ArrayList<String>() {{add("{1=Ingredient1}");}});
         when(product.getName()).thenReturn("N");
-        when(product.getNutrimets()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
+        when(product.getNutrients()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ProductUnitTest {
         assertEquals(("Name: " + product.getName()
                 + "\n -Barcode: " + product.getBarcode()
                 + "\n -Ingredients: " + product.getIngredients().toString()
-                + "\n -Nutrients: " + product.getNutrimets().toString()
+                + "\n -Nutrients: " + product.getNutrients().toString()
                 + "\n -URLimage: " + product.getImage() + "\n"), sameProduct.toString());
     }
 
@@ -67,6 +67,50 @@ public class ProductUnitTest {
         expectedIngredients.add("Ingredient1");
 
         assertEquals(expectedIngredients, productToTest.getIngredients());
+    }
+
+    @Test
+    public void getNutrientsTest() {
+        Product p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>>() {{
+                    add(new HashMap<String, Object>() {{
+                        put("text", "Ingredient1");
+                    }});
+                }},
+                "b", new HashMap<String, Object>() {{
+            put("fat", "Value1");
+            put("fat_100g", "Value2"); //We want this nutrient
+            put("fat_200g", "Value3");
+            put("carbohydrates_100g", "Value4"); //We want this too.
+        }});
+
+        HashMap<String, Object> expected = new HashMap<>();
+        expected.put("fat", "Value2");
+        expected.put("carbohydrates", "Value4");
+
+        assertEquals(expected, p1.getNutrients());
+
+        p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>>() {{
+                    add(new HashMap<String, Object>() {{
+                        put("text", "Ingredient1");
+                    }});
+                }},
+                "b", new HashMap<String, Object>() {{
+            put("fat", "Value1");
+            put("fat_200g", "Value2");
+            put("carbohydrates", "Value3");
+            put("nutrition-score-uk_100g", "Value5");
+            put("nova-group_100g", "Value6");
+            put("nutrition-score-fr_100g", "Value7");
+        }});
+
+        assertEquals(new HashMap<String, Object>(), p1.getNutrients());
+
     }
 
     @Test

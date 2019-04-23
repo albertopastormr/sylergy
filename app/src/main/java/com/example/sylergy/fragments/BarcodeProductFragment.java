@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import com.example.sylergy.activities.MainActivity;
@@ -22,11 +24,14 @@ import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class BarcodeProductFragment extends Fragment implements UpdateActivity {
     public static final String OBJ = "OBJ"; //Used to the define the "key" we will use to send the found object to the other activity
 
     Button btnSearch;
+    ImageButton btnCamera;
     EditText numberCodeText;
     ProgressDialog draw;
 
@@ -38,6 +43,7 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
         View view = inflater.inflate(R.layout.fragment_search_barcode, container, false);
 
         btnSearch = view.findViewById(R.id.btnSearch);
+        btnCamera = view.findViewById(R.id.btnCamera);
         numberCodeText = view.findViewById(R.id.barcodeText);
         draw = new ProgressDialog(getActivity());
         draw.setMessage("Searching...");
@@ -67,6 +73,21 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
                 }
             }
         });
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator integrator = IntentIntegrator.forSupportFragment(BarcodeProductFragment.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setPrompt("Scan Barcode");
+                integrator.setCameraId(0); // camera default
+                integrator.setBeepEnabled(false); // sound
+
+                integrator.initiateScan();
+            }
+        });
+
         return view;
     }
 
@@ -74,6 +95,25 @@ public class BarcodeProductFragment extends Fragment implements UpdateActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.fragment_search_barcode);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                //Toast.makeText(this.getActivity(), "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                draw.show();
+                Presenter.getInstance()
+                        .action(new Context(Events.SEARCH_PRODUCT_BARCODE,
+                                result.getContents(),
+                                BarcodeProductFragment.this));
+
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override

@@ -71,8 +71,8 @@ public class DAOProductImp implements DAOProduct { ;
         DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products");
         //This is a reference to our Firebase Database.
         Query findByNameQuery = databaseReference.orderByChild("name")
-                .startAt(nameToFindSimilar)
-                .endAt(nameToFindSimilar + "\uf8ff"); //We create the specific query
+                .startAt(nameToFindSimilar.toUpperCase())
+                .endAt(nameToFindSimilar.toUpperCase() + "\uf8ff"); //We create the specific query
 
         findByNameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

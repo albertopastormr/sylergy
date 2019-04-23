@@ -40,8 +40,8 @@ public class IntegrationTest {
                 "https://fotos01.lne.es/2018/09/23/690x278" +
                         "/el-alimento-con-el-que-adelgazaras-y-" +
                         "quemaras-grasas-si-los-comes-todos-los-dias.jpg",
-                null, "N" ,
-                new HashMap<String, Object>(){{put("1","Hola");}});
+                new ArrayList<HashMap<String, Object>> () {{add(new HashMap<String, Object>() {{put("text", "Ingredient1");}});}},
+                "N" , new HashMap<String, Object>(){{put("1","Hola");}});
 
         ref = FirebaseDatabase.getInstance().getReference("Products");
 

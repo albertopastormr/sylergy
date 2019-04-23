@@ -18,12 +18,16 @@ import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 import cn.lankton.flowlayout.FlowLayout;
 
 public class ProductActivity extends AppCompatActivity implements UpdateActivity {
 
     FlowLayout flowlayoutAdaptTag;
     FlowLayout flowLayoutIngredientTag;
+
+    FlowLayout flowLayoutNutrientTag;
 
     TextView titleInformation;
     TextView informationView;
@@ -55,10 +59,40 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
 
+        flowLayoutNutrientTag = findViewById(R.id.flowlayoutNutrientTag);
+        flowLayoutNutrientTag.relayoutToCompress();
+
         //This belongs to another user history
-        /*for(String str: p.getIngredients()) {
+        for(String str: p.getIngredients()) {
             addAdaptTag(flowLayoutIngredientTag, str);
-        }*/
+        }
+
+        HashMap<String, Object> nutrients = p.getNutrients(); //We get the nutrients from the product.
+
+        if(nutrients.size() == 0){
+            throw new LogException(Logs.NO_INFORMATION_IN_DATABASE, ProductActivity.this);
+        }
+        else {
+            /*for (int i = 0; i < p.getNutrients().size(); i++) {
+                String key = p.getNutrients().get(i).getKey();
+                Double val = Double.valueOf(p.getNutrients().get(i).getValue().toString());
+                addAdaptTag(flowLayoutNutrientTag,
+                        key.substring(0, key.length() - 5).toUpperCase()
+                                + " = " +
+                                Math.round(val * 100d) / 100d);
+            }*/
+
+            for (String nutrient_name : nutrients.keySet()) {
+                Double value = Double.valueOf(nutrients.get(nutrient_name).toString());
+                addAdaptTag(flowLayoutNutrientTag,
+                        nutrient_name.toUpperCase()
+                                + " = " +
+                                Math.round(value * 100d) / 100d);
+            }
+
+        }
+
+
     }
 
     protected void addAdaptTag(FlowLayout flowLayout,String str){

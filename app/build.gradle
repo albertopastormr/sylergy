@@ -48,4 +48,8 @@ dependencies {
     implementation 'androidx.test.espresso:espresso-idling-resource:3.1.1'
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    //implementation 'com.android.support:appcompat-v7:28.0.0'   // it was implemented with lower version in second linea, have any reason?
+    implementation 'com.google.zxing:core:3.3.0'
 }
