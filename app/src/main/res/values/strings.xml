@@ -15,4 +15,23 @@
     <string name="navigation_barcode">Barcode</string>
     <string name="navigation_searches">Searches</string>
     <string name="new_product">New Product</string>
+    <string name="create_product_fragment_introduce_name">Name of the product</string>
+    <string name="create_product_fragment_title">Create product</string>
+    <string name="create_product_fragment_introduce_barcode">Barcode of the product</string>
+    <string name="upload_product_picture">Upload picture</string>
+    <string name="scan_product_barcode">Scan barcode</string>
+    <string name="nutrientsTitle">Nutrients:</string>
+    <string name="select_nutrients_title">Nutrients</string>
+    <string name="ok">Ok</string>
+    <string name="please_input_the_ingredients_of_this_product">Please input the ingredients of this product...</string>
+
+
+    <string-array name="nutrients">
+    <item>Nutrient 1</item>
+    <item>Nutrient 2</item>
+    <item>Nutrient 3</item>
+    <item>Nutrient 4</item>
+    <item>Nutrient 5</item>
+    <item>Nutrient 6</item>
+    </string-array>
 </resources>

@@ -1,11 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background2"
-    tools:context=".fragments.CreateProductFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background2"
+        android:touchscreenBlocksFocus="false"
+        tools:context=".fragments.CreateProductFragment">
+
+        <TextView
+            android:id="@+id/titleIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/ingredients_label"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectedNutrients" />
+
+        <EditText
+            android:id="@+id/editText_productName"
+            style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
+            android:layout_width="180dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="44dp"
+            android:cursorVisible="false"
+            android:hint="@string/create_product_fragment_introduce_name"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createProductTitle"
+            tools:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editText_productBarcode"
+            style="@android:style/Widget.Holo.Light.AutoCompleteTextView"
+            android:layout_width="198dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:cursorVisible="false"
+            android:hint="@string/create_product_fragment_introduce_barcode"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_productName"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/createProductTitle"
+            android:layout_width="171dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="120dp"
+            android:text="@string/create_product_fragment_title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_scanBarcode"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="28dp"
+            android:text="@string/scan_product_barcode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+        <Button
+            android:id="@+id/button_uploadPicture"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/upload_product_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/camera_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createProductTitle" />
+
+        <TextView
+            android:id="@+id/nutrimentsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/nutrients_label"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_uploadPicture" />
+
+        <Button
+            android:id="@+id/button_addNutrients"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/plus_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_scanBarcode" />
+
+        <TextView
+            android:id="@+id/selectedNutrients"
+            android:layout_width="340dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nutrimentsTitle" />
+
+        <EditText
+            android:id="@+id/ingredients"
+            style="@android:style/Widget.Holo.Light.EditText"
+            android:layout_width="309dp"
+            android:layout_height="116dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="fill_horizontal"
+            android:hint="@string/please_input_the_ingredients_of_this_product"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scrollHorizontally="false"
+            android:inputType="textMultiLine"
+            app:layout_constraintTop_toBottomOf="@+id/titleIngredients" />
+
+        <ImageButton
+            android:id="@+id/button_checkNewProduct"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/check_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredients" />
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
