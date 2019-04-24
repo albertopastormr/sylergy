@@ -70,6 +70,50 @@ public class ProductUnitTest {
     }
 
     @Test
+    public void getNutrientsTest() {
+        Product p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>>() {{
+                    add(new HashMap<String, Object>() {{
+                        put("text", "Ingredient1");
+                    }});
+                }},
+                "b", new HashMap<String, Object>() {{
+            put("fat", "Value1");
+            put("fat_100g", "Value2"); //We want this nutrient
+            put("fat_200g", "Value3");
+            put("carbohydrates_100g", "Value4"); //We want this too.
+        }});
+
+        HashMap<String, Object> expected = new HashMap<>();
+        expected.put("fat", "Value2");
+        expected.put("carbohydrates", "Value4");
+
+        assertEquals(expected, p1.getNutrients());
+
+        p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
+                "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
+                "grasas-si-los-comes-todos-los-dias.jpg",
+                new ArrayList<HashMap<String, Object>>() {{
+                    add(new HashMap<String, Object>() {{
+                        put("text", "Ingredient1");
+                    }});
+                }},
+                "b", new HashMap<String, Object>() {{
+            put("fat", "Value1");
+            put("fat_200g", "Value2");
+            put("carbohydrates", "Value3");
+            put("nutrition-score-uk_100g", "Value5");
+            put("nova-group_100g", "Value6");
+            put("nutrition-score-fr_100g", "Value7");
+        }});
+
+        assertEquals(new HashMap<String, Object>(), p1.getNutrients());
+
+    }
+
+    @Test
     public void sortByNameTest() {
         Product p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
                 "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +

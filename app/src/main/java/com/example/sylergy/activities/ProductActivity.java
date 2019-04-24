@@ -18,6 +18,9 @@ import com.example.sylergy.objects.Product;
 import com.example.sylergy.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.List;
+
 import cn.lankton.flowlayout.FlowLayout;
 
 public class ProductActivity extends AppCompatActivity implements UpdateActivity {
@@ -25,8 +28,12 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
     FlowLayout flowlayoutAdaptTag;
     FlowLayout flowLayoutIngredientTag;
 
+    FlowLayout flowLayoutNutrientTag;
+
     TextView titleInformation;
     TextView informationView;
+    TextView ingredient_text;
+    TextView nutrients_text;
 
     ImageView imageView;
 
@@ -37,6 +44,8 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
 
         titleInformation = findViewById(R.id.textViewProductName);
         informationView = findViewById(R.id.flowlayoutInformationTag);
+        ingredient_text = findViewById(R.id.ingredient_text_id);
+        nutrients_text = findViewById(R.id.title_nutrients);
 
         imageView = findViewById(R.id.imageViewProductImage);
 
@@ -45,20 +54,38 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         titleInformation.setText(p.getName().toUpperCase()); //We update the fields
         setCustomImage(p.getImage()); //We update the image, if it exists
 
-        /*flowlayoutAdaptTag = findViewById(R.id.flowlayoutAdaptTag);
-        flowlayoutAdaptTag.relayoutToAlign();
-
-        for(String str: p.getNutriments()){
-            addAdaptTag(flowlayoutAdaptTag,str);
-        }*/
-
         flowLayoutIngredientTag = findViewById(R.id.flowlayoutIngredientTag);
         flowLayoutIngredientTag.relayoutToCompress();
 
-        //This belongs to another user history
-        for(String str: p.getIngredients()) {
+        flowLayoutNutrientTag = findViewById(R.id.flowlayoutNutrientTag);
+        flowLayoutNutrientTag.relayoutToCompress();
+
+
+        List<String> ingredients = p.getIngredients();
+        if (ingredients.isEmpty())
+            ingredient_text.append(" (EMPTY)");
+
+        for (String str : ingredients) {
             addAdaptTag(flowLayoutIngredientTag, str);
         }
+
+        HashMap<String, Object> nutrients = p.getNutrients(); //We get the nutrients from the product.
+
+
+        if (nutrients.isEmpty()) {
+            nutrients_text.append(" (EMPTY)");
+
+        } else {
+            for (String nutrient_name : nutrients.keySet()) {
+                Double value = Double.valueOf(nutrients.get(nutrient_name).toString());
+                addAdaptTag(flowLayoutNutrientTag,
+                        nutrient_name.toUpperCase()
+                                + " = " +
+                                Math.round(value * 100d) / 100d);
+            }
+
+        }
+
 
 
     }

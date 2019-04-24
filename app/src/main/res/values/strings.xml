@@ -4,8 +4,8 @@
     <string name="adapted_for_label">Adapted for:</string>
     <string name="ingredients_label">Ingredients:</string>
     <string name="nutrients_label">Nutrients:</string>
-    <string name="barcode_product_activity_manual_input_label">Number input</string>
-    <string name="barcode_product_activity_message_inside_textbox">Enter the barcode number</string>
+    <string name="barcode_product_activity_manual_input_label">Search by barcode</string>
+    <string name="barcode_product_activity_message_inside_textbox">Introduce a barcode...</string>
     <string name="barcode_product_activity_search_button_label">SEARCH</string>
     <string name="search_button_label">SEARCH</string>
     <string name="search_product_by_name_fragment_text_inside_SearchView">Please type the name of the product</string>

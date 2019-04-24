@@ -9,8 +9,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="310dp"
-        android:layout_height="177dp"
+        android:layout_width="336dp"
+        android:layout_height="181dp"
         android:layout_marginStart="70dp"
         android:layout_marginTop="269dp"
         android:layout_marginEnd="70dp"
@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/numberTextView"
-            android:layout_width="174dp"
+            android:layout_width="170dp"
             android:layout_height="31dp"
             android:layout_marginStart="70dp"
             android:layout_marginTop="25dp"
@@ -43,8 +43,8 @@
 
         <EditText
             android:id="@+id/barcodeText"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
+            android:layout_width="214dp"
+            android:layout_height="42dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="16dp"
@@ -54,6 +54,7 @@
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/btnSearch"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/numberTextView" />
 
@@ -61,12 +62,11 @@
             android:id="@+id/btnCamera"
             android:layout_width="51dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/camera_green"
             android:contentDescription="TODO"
             app:layout_constraintBottom_toTopOf="@+id/btnSearch"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="@+id/barcodeText"
             app:layout_constraintTop_toBottomOf="@+id/numberTextView"
             app:layout_constraintVertical_bias="0.0" />
 
@@ -86,13 +86,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barcodeText" />
 
+        <TextView
+            android:id="@+id/or_option_barcode_fragment"
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="5dp"
+            android:text="or"
+            android:textSize="16sp"
+            android:textColor="@android:color/background_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.759"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.435" />
+
 
     </android.support.constraint.ConstraintLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_width="345dp"
+        android:layout_height="122dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="60dp"
