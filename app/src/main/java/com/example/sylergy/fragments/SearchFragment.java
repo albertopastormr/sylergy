@@ -121,7 +121,7 @@ public class SearchFragment extends Fragment implements UpdateActivity {
             adapter = new ProductsListAdapter(getActivity().getApplicationContext(), productList);
             listViewProduct.setAdapter(adapter);
         }
-        if(result == null) { //That means that there is no product with the given name
+        if(result == null || result.size() == 0) { //That means that there is no product with the given name
             LogsView advise = new LogsView(Logs.PRODUCT_NOT_FOUND);
             advise.showInfo(getActivity());
         }
