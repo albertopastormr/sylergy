@@ -49,8 +49,10 @@ public class Product implements Serializable {
 
     public List<String> getIngredients() {
         List<String> ret = new ArrayList<>();
+        if(ingredients == null || ingredients.isEmpty()) return ret;
         for(HashMap<String, Object> elem: ingredients) {
-            if(elem != null) ret.add((String)elem.get("text"));
+            if(elem != null && !(elem.get("text")).equals("PUEDE CONTENER TRAZA DE SOJA")
+                    && !(name.contains((String) elem.get("text")))) ret.add((String)elem.get("text"));
         }
 
         return ret;
@@ -60,25 +62,11 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
     }
 
-    /*public List<Map.Entry<String, Object>> getNutrients() {
-        ArrayList<Map.Entry<String, Object>> nut100gr = new ArrayList<>();
-        ArrayList<Map.Entry<String, Object>> nut = new ArrayList<>();
-        nut.addAll(nutrients.entrySet());
-        for (Map.Entry<String, Object> entry : nut) {
-            String key = entry.getKey();
-            if(key.length() > 4 && !key.equals("nova-group_100g") && !key.equals("nutrition-score-uk_100g") && !key.equals("nutrition-score-fr_100g") ) {
-                String subString = key.substring(key.length() - 4, key.length());
-                if (subString.equals("100g")) {
-                    nut100gr.add(entry);
-                }
-            }
-        }
-        return nut100gr;
-    }*/
-
     /* Alternative Version */
     public HashMap<String, Object> getNutrients() {
         HashMap<String, Object> toReturn = new HashMap<>();
+        if(nutrients == null || nutrients.isEmpty()) return toReturn;
+
         for(String nutrient_name: nutrients.keySet()) {
             if(nutrient_name.contains("_100g") &&
                     !nutrient_name.equals("nova-group_100g") &&
