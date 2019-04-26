@@ -70,8 +70,9 @@ public class DAOProductImp implements DAOProduct { ;
         DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products");
         //This is a reference to our Firebase Database.
         Query findByNameQuery = databaseReference.orderByChild("name")
-                .startAt("*" + nameToFindSimilar) // With that the query is faster
-                .endAt(nameToFindSimilar + "\uf8ff"); //We create the specific query*/
+                .limitToFirst(30)
+                .startAt(nameToFindSimilar.toUpperCase()) // With that the query is faster
+                .endAt(nameToFindSimilar.toUpperCase() + "\uf8ff"); //We create the specific query*/
 
         findByNameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -81,9 +82,11 @@ public class DAOProductImp implements DAOProduct { ;
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot d : dataSnapshot.getChildren()) { //We recolect our data
 
-                        String resultLower = d.getValue(Product.class).getName().toLowerCase();
+/*                        String resultLower = d.getValue(Product.class).getName().toLowerCase();
                         if (resultLower.contains(nameToFindSimilarLower))
-                            productList.add(d.getValue(Product.class));
+                            productList.add(d.getValue(Product.class));*/
+
+                        productList.add(d.getValue(Product.class));
 
                     }
 
