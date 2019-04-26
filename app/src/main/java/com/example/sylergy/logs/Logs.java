@@ -14,4 +14,5 @@ public class Logs {
     public static final String NO_SEARCH_NAME = "Please, introduce a name.";
     public static final String NO_NUTRITIONAL_INFORMATION_IN_DATABASE = "There is no nutritional information stored in the system for this product. ";
     public static final String NO_INGGREDIENT_INFORMATION_IN_DATABASE = "There is no ingredients information stored in the system for this product. ";
+
 }
