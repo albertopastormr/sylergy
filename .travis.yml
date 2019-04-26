@@ -3,6 +3,10 @@ language: android
 jdk: oraclejdk8
 sudo: false
 
+env:
+  global:
+    - JAVA_OPTS=-Xmx4g
+
 android: 
   components: 
     - tools
