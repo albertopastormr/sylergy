@@ -1,6 +1,7 @@
 package com.example.sylergy.integration.product.dao.imp;
 
 import android.support.annotation.NonNull;
+
 import com.example.sylergy.integration.product.dao.DAOProduct;
 import com.example.sylergy.integration.firebase.FirebaseUtil;
 
@@ -17,7 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOProductImp implements DAOProduct { ;
+public class DAOProductImp implements DAOProduct {
+    ;
 
     @Override
     public Product readById(final Context context) {
@@ -33,15 +35,14 @@ public class DAOProductImp implements DAOProduct { ;
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listProducts.clear();
                 Context newContext;
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
                         listProducts.add(d.getValue(Product.class));
                     }
                     newContext = new Context(Events.SEARCH_PRODUCT_OK, listProducts.get(0));
                     newContext.setActivity(context.getActivity());
 
-                }
-                else{
+                } else {
                     newContext = new Context(Events.SEARCH_PRODUCT_ERROR, null);
                     newContext.setActivity(context.getActivity());
                 }
@@ -57,6 +58,7 @@ public class DAOProductImp implements DAOProduct { ;
 
         return listProducts.get(0);
     }
+
     @Override
     public Product readByName(final Context context) {
         //We will store the products in this list.
@@ -64,7 +66,7 @@ public class DAOProductImp implements DAOProduct { ;
         productList.add(null);
 
         //This is the name of the product we want to find in the database
-        final String nameToFindSimilar = (String)context.getData();
+        final String nameToFindSimilar = (String) context.getData();
 
         final String nameToFindSimilarLower = nameToFindSimilar.toLowerCase();
         DatabaseReference databaseReference = FirebaseUtil.getSpecifiedReference("Products");
@@ -79,7 +81,7 @@ public class DAOProductImp implements DAOProduct { ;
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productList.clear();
                 Context newContext = null;
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     for (DataSnapshot d : dataSnapshot.getChildren()) { //We recolect our data
 
 /*                        String resultLower = d.getValue(Product.class).getName().toLowerCase();
@@ -90,22 +92,19 @@ public class DAOProductImp implements DAOProduct { ;
 
                     }
 
-                    if(context.getEvent().equals(Events.SEARCH_PRODUCT_NAME)) {
+                    if (context.getEvent().equals(Events.SEARCH_PRODUCT_NAME)) {
                         newContext = new Context(Events.SEARCH_PRODUCT_NAME_OK, productList);
                         newContext.setActivity(context.getActivity());
-                    }
-                    else if(context.getEvent().equals(Events.SEARCH_PRODUCT_BARCODE)){
+                    } else if (context.getEvent().equals(Events.SEARCH_PRODUCT_BARCODE)) {
                         newContext = new Context(Events.SEARCH_PRODUCT_BARCODE_OK, productList);
                         newContext.setActivity(context.getActivity());
 
                     }
-                }
-                else {
-                    if(context.getEvent().equals(Events.SEARCH_PRODUCT_NAME)) {
+                } else {
+                    if (context.getEvent().equals(Events.SEARCH_PRODUCT_NAME)) {
                         newContext = new Context(Events.SEARCH_PRODUCT_NAME_ERROR, null);
                         newContext.setActivity(context.getActivity());
-                    }
-                    else if(context.getEvent().equals(Events.SEARCH_PRODUCT_BARCODE)){
+                    } else if (context.getEvent().equals(Events.SEARCH_PRODUCT_BARCODE)) {
                         newContext = new Context(Events.SEARCH_PRODUCT_BARCODE_ERROR, productList);
                         newContext.setActivity(context.getActivity());
                     }
@@ -114,7 +113,8 @@ public class DAOProductImp implements DAOProduct { ;
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
 
         return productList.get(0);
@@ -174,5 +174,49 @@ public class DAOProductImp implements DAOProduct { ;
 
         return productList.get(0);
     }*/
+
+    @Override
+    public void createProduct(final Context context) {
+        final Product product = (Product) context.getData();
+        final DatabaseReference database = FirebaseUtil.getSpecifiedReference("Products").child(product.getBarcode());
+
+        final ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object
+                Product productResult = dataSnapshot.getValue(Product.class);
+                Presenter.getInstance().dispatchActivity(new Context(Events.CREATE_PRODUCT_OK, productResult,context.getActivity()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Presenter.getInstance().dispatchActivity(new Context(Events.CREATE_PRODUCT_ERROR, databaseError.toException().getMessage(),context.getActivity()));
+            }
+        };
+
+
+        Query query = FirebaseUtil.getQueryByChild(FirebaseUtil.getSpecifiedReference("Products"), "barcode").equalTo(product.getBarcode());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    database.setValue(product);
+                    database.addValueEventListener(postListener);
+                }else{
+                    Presenter.getInstance().dispatchActivity(new Context(Events.CREATE_PRODUCT_ERROR, "Product exist",context.getActivity()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+    }
 
 }

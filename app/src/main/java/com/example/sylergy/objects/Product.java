@@ -1,5 +1,7 @@
 package com.example.sylergy.objects;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,15 +49,25 @@ public class Product implements Serializable {
         this.barcode = barcode;
     }
 
-    public List<String> getIngredients() {
-        List<String> ret = new ArrayList<>();
+    @Exclude
+    public ArrayList<String> getIngredientsTags() {
+        ArrayList<String> ret = new ArrayList<>();
         if(ingredients == null || ingredients.isEmpty()) return ret;
         for(HashMap<String, Object> elem: ingredients) {
             if(elem != null && !(elem.get("text")).equals("PUEDE CONTENER TRAZA DE SOJA")
-                    && !(name.contains((String) elem.get("text")))) ret.add((String)elem.get("text"));
+                    && !(name.contains((String) elem.get("text"))))
+                ret.add((String)elem.get("text"));
         }
 
         return ret;
+    }
+
+    public ArrayList<HashMap<String, Object>> getIngredients() {
+        return ingredients;
+    }
+
+    public HashMap<String, Object> getNutrients() {
+        return nutrients;
     }
 
     public void setIngredients(ArrayList<HashMap<String, Object>> ingredients) {
@@ -63,7 +75,8 @@ public class Product implements Serializable {
     }
 
     /* Alternative Version */
-    public HashMap<String, Object> getNutrients() {
+    @Exclude
+    public HashMap<String, Object> getNutrientsTags() {
         HashMap<String, Object> toReturn = new HashMap<>();
         if(nutrients == null || nutrients.isEmpty()) return toReturn;
 

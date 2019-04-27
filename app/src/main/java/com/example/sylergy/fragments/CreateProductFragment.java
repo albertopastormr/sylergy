@@ -10,16 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sylergy.R;
+import com.example.sylergy.activities.MainActivity;
 import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.logs.LogException;
 
 import com.example.sylergy.objects.Context;
+import com.example.sylergy.objects.Events;
+import com.example.sylergy.objects.Product;
+import com.example.sylergy.presenter.Presenter;
+import com.google.firebase.database.DatabaseException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CreateProductFragment extends Fragment implements UpdateActivity {
 
@@ -38,7 +46,7 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
 
     EditText ingredients;
 
-    Button checkNewProduct;
+    ImageButton checkNewProduct;
 
 
 
@@ -63,7 +71,7 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
 
         ingredients = view.findViewById(R.id.ingredients);
 
-       // checkNewProduct = view.findViewById(R.id.button_checkNewProduct)
+        checkNewProduct = view.findViewById(R.id.button_checkNewProduct);
 
         button_addNutriments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +134,27 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
         });
 
 
+        checkNewProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // a new product for test
+                ArrayList<HashMap<String, Object>> ingredients= new ArrayList<HashMap<String, Object>>();
+                HashMap<String, Object> map1=new HashMap<String, Object>();
+                map1.put("id","test ID 1");
+                map1.put("rank","test rank 1");
+                map1.put("text","test text 1");
+                HashMap<String, Object> map2=new HashMap<String, Object>();
+                map2.put("id","test ID 2");
+                map2.put("rank","test rank 2");
+                map2.put("text","test text 2");
+
+                ingredients.add(map1);
+                ingredients.add(map2);
+                Product product = new Product("123456","test url",ingredients,"Test Product",map1);
+
+                Presenter.getInstance().action(new Context(Events.CREATE_PRODUCT,product,CreateProductFragment.this));
+            }
+        });
 
 
 
@@ -134,7 +163,11 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
 
     @Override
     public void updateWithCommandResult(Context context) throws LogException {
-
+        if(context.getEvent().compareToIgnoreCase(Events.CREATE_PRODUCT_OK) == 0){
+            Toast.makeText(MainActivity.context, ((Product)context.getData()).toString(), Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(MainActivity.context, (String)context.getData(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

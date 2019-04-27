@@ -41,17 +41,17 @@ public class ProductUnitTest {
         when(product.getImage()).thenReturn("https://fotos01.lne.es/2018/09/23/690x278" +
                 "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
                 "grasas-si-los-comes-todos-los-dias.jpg");
-        when(product.getIngredients()).thenReturn(new ArrayList<String>() {{add("{1=Ingredient1}");}});
+        when(product.getIngredientsTags()).thenReturn(new ArrayList<String>() {{add("{1=Ingredient1}");}});
         when(product.getName()).thenReturn("N");
-        when(product.getNutrients()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
+        when(product.getNutrientsTags()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
     }
 
     @Test
     public void toStringTest(){
         assertEquals(("Name: " + product.getName()
                 + "\n -Barcode: " + product.getBarcode()
-                + "\n -Ingredients: " + product.getIngredients().toString()
-                + "\n -Nutrients: " + product.getNutrients().toString()
+                + "\n -Ingredients: " + product.getIngredientsTags().toString()
+                + "\n -Nutrients: " + product.getNutrientsTags().toString()
                 + "\n -URLimage: " + product.getImage() + "\n"), sameProduct.toString());
     }
 
@@ -66,7 +66,7 @@ public class ProductUnitTest {
         List<String> expectedIngredients = new ArrayList<>();
         expectedIngredients.add("Ingredient1");
 
-        assertEquals(expectedIngredients, productToTest.getIngredients());
+        assertEquals(expectedIngredients, productToTest.getIngredientsTags());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class ProductUnitTest {
         expected.put("fat", "Value2");
         expected.put("carbohydrates", "Value4");
 
-        assertEquals(expected, p1.getNutrients());
+        assertEquals(expected, p1.getNutrientsTags());
 
         p1 = new Product("1234", "https://fotos01.lne.es/2018/09/23/690x278" +
                 "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
@@ -109,7 +109,7 @@ public class ProductUnitTest {
             put("nutrition-score-fr_100g", "Value7");
         }});
 
-        assertEquals(new HashMap<String, Object>(), p1.getNutrients());
+        assertEquals(new HashMap<String, Object>(), p1.getNutrientsTags());
 
     }
 
