@@ -20,6 +20,8 @@ import com.example.sylergy.activities.MainActivity;
 import com.example.sylergy.activities.UpdateActivity;
 import com.example.sylergy.logs.LogException;
 
+import com.example.sylergy.logs.LogsView;
+import com.example.sylergy.objects.ApplicationForm;
 import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
@@ -27,7 +29,11 @@ import com.example.sylergy.presenter.Presenter;
 import com.google.firebase.database.DatabaseException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CreateProductFragment extends Fragment implements UpdateActivity {
 
@@ -96,16 +102,16 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
                     builder.setPositiveButton((R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String alergeno = "";
+                            String nutrients = "";
                             for (int i = 0; i < selectedNutriments.size(); i++) {
                                 if (i < selectedNutriments.size()-1) {
-                                    alergeno = alergeno + listNutriments[selectedNutriments.get(i)] + ", ";
+                                    nutrients = nutrients + listNutriments[selectedNutriments.get(i)] + ", ";
                                 } else {
-                                    alergeno = alergeno + listNutriments[selectedNutriments.get(i)];
+                                    nutrients = nutrients + listNutriments[selectedNutriments.get(i)];
                                 }
 
                             }
-                            nutriments.setText(alergeno);
+                            nutriments.setText(nutrients);
                         }
 
                     });
@@ -138,7 +144,7 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
             @Override
             public void onClick(View v) {
                 // a new product for test
-                ArrayList<HashMap<String, Object>> ingredients= new ArrayList<HashMap<String, Object>>();
+               /* ArrayList<HashMap<String, Object>> ingredientsList= new ArrayList<HashMap<String, Object>>();
                 HashMap<String, Object> map1=new HashMap<String, Object>();
                 map1.put("id","test ID 1");
                 map1.put("rank","test rank 1");
@@ -148,11 +154,49 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
                 map2.put("rank","test rank 2");
                 map2.put("text","test text 2");
 
-                ingredients.add(map1);
-                ingredients.add(map2);
-                Product product = new Product("123456","test url",ingredients,"Test Product",map1);
+                ingredientsList.add(map1);
+                ingredientsList.add(map2);
+                Product product = new Product("123456","test url",ingredientsList,"Test Product",map1);*/
 
-                Presenter.getInstance().action(new Context(Events.CREATE_PRODUCT,product,CreateProductFragment.this));
+
+                ApplicationForm applicationForm = new ApplicationForm();
+
+                //Convertir EditTest en List<String>
+                String ingredients1 = ingredients.getText().toString();
+                ArrayList<HashMap<String, Object>> arrayListIngredients = new ArrayList<HashMap<String, Object>>();
+                if(!ingredients1.isEmpty()) {
+                    String[] ingredientsArray = ingredients1.split("\n");
+
+                    List<String> ingredientsList = Arrays.asList(ingredientsArray);
+
+                    for (int i = 0; i < ingredientsList.size(); i++) {
+                        HashMap<String, Object> map = new HashMap<String, Object>();
+                        map.put("id", ingredientsList.get(i));
+                        map.put("rank", i);
+                        map.put("text", ingredientsList.get(i));
+                        arrayListIngredients.add(map);
+                    }
+                }
+
+                HashMap<String, Object> nutrientsMap = new HashMap<String, Object>();
+                for(int i : selectedNutriments){
+                    //AQUI DEBE IR EL ARGUMENTO DE LOS NUTRIENTES
+                    nutrientsMap.put(listNutriments[i],listNutriments[i]);
+                }
+
+
+                Product product = null;
+
+                //Si pasa los criterios del formulario
+                if(applicationForm.checkName(productName.getText().toString(), getActivity()) &&
+                        applicationForm.checkBarcode(productBarcode.getText().toString(), getActivity()) &&
+                        applicationForm.checkIngredients(arrayListIngredients, getActivity())  ){
+                        //&& applicationForm.checkNutrients(productName.getText().toString(), getActivity())){
+                    product = new Product(productBarcode.getText().toString(),productImage.toString(),arrayListIngredients,
+                            productName.getText().toString(),nutrientsMap);
+                    Presenter.getInstance().action(new Context(Events.CREATE_PRODUCT,product,CreateProductFragment.this));
+
+                }
             }
         });
 
@@ -160,6 +204,7 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
 
         return view;
     }
+
 
     @Override
     public void updateWithCommandResult(Context context) throws LogException {

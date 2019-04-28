@@ -1,4 +1,4 @@
-package com.example.sylergy.activities;
+ package com.example.sylergy.activities;
 
 import android.content.Context;
 import android.os.Bundle;
