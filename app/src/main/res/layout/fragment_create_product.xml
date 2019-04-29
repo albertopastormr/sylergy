@@ -90,10 +90,12 @@
 
         <ImageView
             android:id="@+id/productImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="102dp"
+            android:layout_height="102dp"
             android:layout_marginStart="28dp"
             android:layout_marginTop="36dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
             android:src="@drawable/camera_green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createProductTitle" />
