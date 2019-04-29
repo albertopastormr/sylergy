@@ -18,7 +18,7 @@ public class Logs {
     public static final String INCORRECT_INGREDIENTS = "Ingredients must be less than 1000 digits.";
     public static final String INCORRECT_INGREDIENT = "Ingredient empty.";
     public static final String NO_INGREDIENTS = "Please, introduce an ingredient.";
-    public static final String NO_NUTRIENTS = "Please, introduce an ingredient.";
+    public static final String NO_NUTRIENTS = "Please, introduce a nutrient.";
 
 
 }

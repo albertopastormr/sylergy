@@ -31,6 +31,7 @@ import com.example.sylergy.objects.Context;
 import com.example.sylergy.objects.Events;
 import com.example.sylergy.objects.Product;
 import com.example.sylergy.presenter.Presenter;
+import com.example.sylergy.utils.Check;
 import com.google.firebase.database.DatabaseException;
 
 import java.io.FileNotFoundException;
@@ -182,34 +183,18 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
         checkNewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // a new product for test
-               /* ArrayList<HashMap<String, Object>> ingredientsList= new ArrayList<HashMap<String, Object>>();
-                HashMap<String, Object> map1=new HashMap<String, Object>();
-                map1.put("id","test ID 1");
-                map1.put("rank","test rank 1");
-                map1.put("text","test text 1");
-                HashMap<String, Object> map2=new HashMap<String, Object>();
-                map2.put("id","test ID 2");
-                map2.put("rank","test rank 2");
-                map2.put("text","test text 2");
-
-                ingredientsList.add(map1);
-                ingredientsList.add(map2);
-                Product product = new Product("123456","test url",ingredientsList,"Test Product",map1);*/
-
-
                 ApplicationForm applicationForm = new ApplicationForm();
 
                 //Convertir EditTest en List<String>
                 String ingredients1 = ingredients.getText().toString();
-                ArrayList<HashMap<String, Object>> arrayListIngredients = new ArrayList<HashMap<String, Object>>();
-                if (!ingredients1.isEmpty()) {
+                ArrayList<HashMap<String, Object>> arrayListIngredients = new ArrayList<>();
+                if(!ingredients1.isEmpty()) {
                     String[] ingredientsArray = ingredients1.split("\n");
 
                     List<String> ingredientsList = Arrays.asList(ingredientsArray);
 
                     for (int i = 0; i < ingredientsList.size(); i++) {
-                        HashMap<String, Object> map = new HashMap<String, Object>();
+                        HashMap<String, Object> map = new HashMap<>();
                         map.put("id", ingredientsList.get(i));
                         map.put("rank", i);
                         map.put("text", ingredientsList.get(i));
@@ -217,24 +202,22 @@ public class CreateProductFragment extends Fragment implements UpdateActivity {
                     }
                 }
 
-                HashMap<String, Object> nutrientsMap = new HashMap<String, Object>();
-                for (int i : selectedNutriments) {
+                HashMap<String, Object> nutrientsMap = new HashMap<>();
+                for(int i : selectedNutriments){
                     //AQUI DEBE IR EL ARGUMENTO DE LOS NUTRIENTES
-                    nutrientsMap.put(listNutriments[i], listNutriments[i]);
+                    nutrientsMap.put(listNutriments[i],listNutriments[i]);
                 }
 
+                Product product = new Product(productBarcode.getText().toString(),productImage.toString(),arrayListIngredients,
+                        productName.getText().toString(),nutrientsMap);
 
-                Product product = null;
-
-                //Si pasa los criterios del formulario
-                if (applicationForm.checkName(productName.getText().toString(), getActivity()) &&
-                        applicationForm.checkBarcode(productBarcode.getText().toString(), getActivity()) &&
-                        applicationForm.checkIngredients(arrayListIngredients, getActivity())) {
-                    //&& applicationForm.checkNutrients(productName.getText().toString(), getActivity())){
-                    product = new Product(productBarcode.getText().toString(), productImage.toString(), arrayListIngredients,
-                            productName.getText().toString(), nutrientsMap);
-                    Presenter.getInstance().action(new Context(Events.CREATE_PRODUCT, product, CreateProductFragment.this));
-
+                Check check = applicationForm.checkApplicationForm(product);
+                if(check.getCorrect()){
+                    Presenter.getInstance().action(new Context(Events.CREATE_PRODUCT,product,CreateProductFragment.this));
+                }
+                else{
+                    LogsView logsView = new LogsView(check.getLog());
+                    logsView.showInfo(getActivity());
                 }
             }
         });
