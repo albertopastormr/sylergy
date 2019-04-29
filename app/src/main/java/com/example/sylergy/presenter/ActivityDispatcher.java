@@ -15,13 +15,16 @@ public class ActivityDispatcher {
     public void dispatchActivity(Context context){
 
         try {
+            // Jiali: why use switch ?
             switch(context.getEvent()) {
                 case Events.SEARCH_PRODUCT_OK :
                 case Events.SEARCH_PRODUCT_NAME_OK :
+                case Events.CREATE_PRODUCT_OK:
                     context.getActivity().updateWithCommandResult(context);
                     break;
                 case Events.SEARCH_PRODUCT_ERROR :
                 case Events.SEARCH_PRODUCT_NAME_ERROR :
+                case Events.CREATE_PRODUCT_ERROR:
                     context.getActivity().updateWithCommandResult(context);
                     break;
             }

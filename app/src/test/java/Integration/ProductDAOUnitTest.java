@@ -57,9 +57,9 @@ public class ProductDAOUnitTest {
         when(product.getImage()).thenReturn("https://fotos01.lne.es/2018/09/23/690x278" +
                 "/el-alimento-con-el-que-adelgazaras-y-quemaras-" +
                 "grasas-si-los-comes-todos-los-dias.jpg");
-        when(product.getIngredients()).thenReturn(null);
+        when(product.getIngredientsTags()).thenReturn(null);
         when(product.getName()).thenReturn("N");
-        when(product.getNutrients()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
+        when(product.getNutrientsTags()).thenReturn(new HashMap<String, Object>(){{put("1","Hola");}});
     }
 
     @Test

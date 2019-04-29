@@ -12,6 +12,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
+import androidx.test.espresso.IdlingPolicies;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -23,13 +26,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -91,6 +89,9 @@ public class HU_1 {
     public void registerActivity(){
         idlingResource = mActivityRule.getActivity().getIdlingResource();
         IdlingRegistry.getInstance().register(idlingResource);
+
+        IdlingPolicies.setMasterPolicyTimeout(3, TimeUnit.MINUTES);
+        IdlingPolicies.setIdlingResourceTimeout(3, TimeUnit.MINUTES);
     }
     @After
     public void unregisterActivity(){

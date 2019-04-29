@@ -7,4 +7,5 @@
     -->
     <string name="search_product">com.example.sylergy.command.CommandSearchBarcodeProduct</string>
     <string name="search_product_name">com.example.sylergy.command.CommandSearchNameProduct</string>
+    <string name="create_product">com.example.sylergy.command.CommandCreateProduct</string>
 </resources>

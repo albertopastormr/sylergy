@@ -10,4 +10,7 @@ public class Events {
     public static final String SEARCH_PRODUCT_BARCODE_OK = "search_product_barcode_ok";
     public static final String SEARCH_PRODUCT_BARCODE_ERROR = "search_product_barcode_error";
 
+    public static final String CREATE_PRODUCT = "create_product";
+    public static final String CREATE_PRODUCT_OK = "create_product_ok";
+    public static final String CREATE_PRODUCT_ERROR = "create_product_error";
 }

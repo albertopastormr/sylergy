@@ -1,4 +1,4 @@
-package com.example.sylergy.activities;
+ package com.example.sylergy.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -61,7 +61,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
         flowLayoutNutrientTag.relayoutToCompress();
 
 
-        List<String> ingredients = p.getIngredients();
+        List<String> ingredients = p.getIngredientsTags();
         if (ingredients.isEmpty())
             ingredient_text.append(" (EMPTY)");
 
@@ -69,7 +69,7 @@ public class ProductActivity extends AppCompatActivity implements UpdateActivity
             addAdaptTag(flowLayoutIngredientTag, str);
         }
 
-        HashMap<String, Object> nutrients = p.getNutrients(); //We get the nutrients from the product.
+        HashMap<String, Object> nutrients = p.getNutrientsTags(); //We get the nutrients from the product.
 
 
         if (nutrients.isEmpty()) {

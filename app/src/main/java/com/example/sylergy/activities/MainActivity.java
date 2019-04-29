@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_search:
                         loadFragment(mFragments[1]);
                         return true;
-                    case R.id.navigation_new_product:
+                    /*case R.id.navigation_new_product:
                         loadFragment(mFragments[2]);
-                        return true;
+                        return true;*/
                 }
                 return false;
             }
