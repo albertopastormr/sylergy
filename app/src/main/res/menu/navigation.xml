@@ -8,8 +8,8 @@
         android:id="@+id/navigation_search"
         android:icon="@drawable/search"
         android:title="@string/navigation_searches" />
-    <!-- <item
+    <item
         android:id="@+id/navigation_new_product"
         android:icon="@drawable/create_icon"
-        android:title="@string/new_product" /> -->
+        android:title="@string/new_product" />
 </menu>

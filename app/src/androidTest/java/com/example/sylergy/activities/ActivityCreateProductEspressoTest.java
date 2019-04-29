@@ -1,4 +1,3 @@
-/*
 package com.example.sylergy.activities;
 
 
@@ -54,4 +53,3 @@ public class ActivityCreateProductEspressoTest {
         onView(allOf(withId(R.id.ingredients))).perform(scrollTo()).check(matches(isDisplayed()));
     }
 }
-*/
